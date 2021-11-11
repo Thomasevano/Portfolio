@@ -3,4 +3,5 @@ node_modules
 dist
 .output
 .nuxt
+.DS_STORE
 .env

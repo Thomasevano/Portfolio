@@ -1,13 +1,28 @@
 <template>
-  <div
-    text="xl gray4"
-    m-5
-    flex
-    justify-center
-    gap-3
-  >
-    <NuxtLink i-carbon-campsite to="/" />
-    <a i-carbon-logo-github href="https://github.com/antfu/vitesse-nuxt3" target="_blank" />
-    <DarkToggle />
-  </div>
+  <footer>
+    <NuxtLink to="/" class="link footer__link">
+      Thomas Evano © 2021
+    </NuxtLink>
+  </footer>
 </template>
+
+<style>
+footer {
+  padding: 3em 0;
+  margin-top: 4em;
+  text-align: center;
+}
+
+.footer__link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--clr-fg);
+}
+
+@media (max-width: 600px) {
+  footer {
+    padding: 2em;
+    margin-top: 3em;
+  }
+}
+</style>

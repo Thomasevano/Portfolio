@@ -1,29 +1,13 @@
-<script setup>
-useHead({
-  title: 'Vitesse Nuxt 3',
-  link: [
-    {
-      rel: 'icon', type: 'image/png', href: '/nuxt.png',
-    },
-  ],
-})
-</script>
-
 <template>
-  <NuxtLayout>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico">
+  <Suspense>
     <NuxtPage />
-  </NuxtLayout>
+  </Suspense>
 </template>
 
 <style>
-html, body , #__nuxt{
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-}
+@import '~/styles/reset.css';
+@import '~/styles/main.css';
 
-html.dark {
-  background: #222;
-  color: white;
-}
 </style>

@@ -1,11 +1,18 @@
 import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
+  meta: {
+    title: 'Thomas Evano',
+  },
+  publicRuntimeConfig: {
+    BASE_URL: process.env.BASE_URL,
+  },
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
+    '@vueuse/core/nuxt',
   ],
   experimental: {
     reactivityTransform: true,
