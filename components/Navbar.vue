@@ -43,7 +43,8 @@
       aria-label="toggle navigation"
       @click="toggleNavList"
     >
-      <!-- {{showNavList ? <CloseIcon /> : <MenuIcon />}} -->
+      <div v-if="showNavList" class="icon i-mdi-close" />
+      <div v-else class="icon i-mdi-menu" />
     </button>
   </nav>
 </template>
