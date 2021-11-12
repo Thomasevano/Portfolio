@@ -1,12 +1,14 @@
 <template>
   <div class="about center">
-    <h1 v-if="about.name">
-      Hi, I am <span class="about__name">{{ about.name }}.</span>
-    </h1>
+    <div class="ml11">
+      <h1 v-if="about.name" class="title about__name">
+        Hi, I am {{ about.name }}.
+      </h1>
 
-    <h2 v-if="about.role" class="about__role">
-      A {{ about.role }}.
-    </h2>
+      <h2 v-if="about.role" class="about__role subtitle">
+        A {{ about.role }}.
+      </h2>
+    </div>
     <p class="about__desc">
       {{ about.description }}
     </p>
@@ -63,9 +65,60 @@
 </template>
 
 <script setup>
+import anime from 'animejs/lib/anime.es.js'
+
 const props = defineProps({
   about: Object,
 })
+
+onMounted(() => {
+  const title = document.querySelector('.ml11 .title')
+  const subtitle = document.querySelector('.ml11 .subtitle')
+
+  formatTextToAnimate(title)
+  formatTextToAnimate(subtitle)
+  animateText()
+})
+
+function formatTextToAnimate(text) {
+  return text.innerHTML = text.textContent.replace(
+    // eslint-disable-next-line no-control-regex
+    /([^\x00-\x80]|\w|\W)/g,
+    '<span class=\'letter\'>$&</span>',
+  )
+}
+
+function animateText() {
+  anime
+    .timeline()
+    .add({
+      targets: '.ml11 .line',
+      translateX: [
+        0,
+        document.querySelector('.ml11').getBoundingClientRect().width
+        + 10,
+      ],
+      easing: 'easeOutExpo',
+      duration: 700,
+      delay: 100,
+    })
+    .add({
+      targets: '.ml11 .letter',
+      opacity: [0, 1],
+      easing: 'easeOutExpo',
+      duration: 600,
+      offset: '-=775',
+      delay(el, i) {
+        return 34 * (i + 1)
+      },
+    })
+    .add({
+      targets: '.ml11',
+      /* opacity: 0, */
+      duration: 500,
+      easing: 'easeOutExpo',
+    })
+}
 </script>
 
 <style>
@@ -75,7 +128,7 @@ const props = defineProps({
   margin-top: 3em;
 }
 
-.about__name {
+.about__name > .letter:nth-child(1n+11) {
   color: var(--clr-primary);
 }
 
