@@ -1,0 +1,38 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer>
+	<span class="link footer__link">🚀 Built with  ♥️  by Thomas Evano &copy; {currentYear}</span>
+	<!-- <small class="byline">🚀 Built by Astro</small> -->
+</footer>
+<style>
+	footer {
+		text-align: center;
+		padding-top: 8rem;
+		padding-right: 2rem;
+		padding-bottom: 4rem;
+		padding-left: 2rem;
+	}
+
+	.byline {
+		display: block;
+		margin-top: 1rem;
+		color: var(--t-subdue);
+		font-size: var(--f-d2);
+		text-transform: uppercase;
+	}
+
+	.footer__link {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--clr-fg);
+	}
+
+	@media (max-width: 600px) {
+		footer {
+			padding: 2em;
+			margin-top: 3em;
+		}
+	}
+</style>

@@ -1,0 +1,33 @@
+---
+import Project from "./Project.astro";
+
+const { projects } = Astro.props;
+
+interface Project {
+  repo: string,
+  description: string,
+  language: string,
+  link: URL,
+  website: URL
+}
+---
+<section id="projects" class="section projects">
+  <h2 class="section__title">
+    Projects
+  </h2>
+  <div class="projects__grid">
+    {projects.map((project: Project) => 
+      <Project project={project}/> 
+    )}
+  </div>
+</section>
+
+<style>
+  .projects__grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+    grid-gap: 2em;
+  }
+</style>
