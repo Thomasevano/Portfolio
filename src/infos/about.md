@@ -1,7 +1,7 @@
 ---
 name: 'Thomas Evano'
-role: JS Developer
-description: I’m a french junior JS developer. Software Engineer student at HETIC. PIX apprentice.
+role: Software Engineer
+description: I’m a french software engineer student at HETIC. PIX apprentice.
 linkedin: https://www.linkedin.com/in/thomasevano/
 github: https://github.com/Thomasevano
 twitter: https://twitter.com/thomas_evano
@@ -17,4 +17,8 @@ skills:
 - Supabase
 - Tailwind CSS
 - TypeScript
+- Vite
+- TDD
+- VueJS
+- Go
 ---
