@@ -1,5 +1,5 @@
 ---
-const { frontmatter } = Astro.props.skills;
+const { skills } = Astro.props;
 ---
 
 <section id="skills" class="section skills">
@@ -7,8 +7,8 @@ const { frontmatter } = Astro.props.skills;
     Skills
   </h2>
   <ul class="skills__list">
-    {frontmatter.skills.map((skill: string) => 
-      <li class="skills__list-item btn btn--plain">
+    {skills.map((skill: string) => 
+      <li class="skills__list-item">
         {skill}
       </li>
     )}

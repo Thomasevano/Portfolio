@@ -5,11 +5,12 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import About from '../components/About.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
-
-// Data Fetching: List all Markdown posts in the repo.
-import * as personalInfos from '../infos/about.md';
 import Skills from '../components/Skills.astro';
 import Projects from '../components/Projects.astro';
+import { getEntry } from 'astro:content';
+
+// Data Fetching: List all Markdown posts in the repo.
+const aboutMe = await getEntry('me', 'about');
 
 const response = await fetch('https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=Thomasevano');
 const projects = await response.json();
@@ -20,16 +21,16 @@ const projects = await response.json();
 
 <html lang="en">
 	<MainHead
-		title="Thomas Evano"
-		description="Hi, I am Thomas Evano"
+		title={`${aboutMe.data.name} - ${aboutMe.data.role}`}
+		description={aboutMe.data.description}
 	/>
 	<Nav />
 	<body class="light">
 		<div id="top" class="app">
 			<main>
-				<About about={personalInfos}/>
+				<About about={aboutMe.data}/>
 				<Projects projects={projects}/>
-				<Skills skills={personalInfos} />
+				<Skills skills={aboutMe.data.skills} />
 			</main>
 			<ScrollToTop />
 		</div>

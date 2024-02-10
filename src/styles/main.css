@@ -53,6 +53,7 @@ main {
   color: var(--clr-primary);
   padding: 0 0 0.3em 0;
   position: relative;
+  cursor: pointer;
 }
 
 .link:hover {
