@@ -11,6 +11,7 @@ francaisResumeLink: /resume/thomas-evano-cv.pdf
 skills: 
 - JS
 - TypeScript
+- Docker
 - NodeJS
 - React
 - Tailwind CSS

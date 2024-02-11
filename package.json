@@ -13,6 +13,7 @@
   "dependencies": {
     "@fontsource/poppins": "^5.0.8",
     "animejs": "^3.2.1",
-    "astro": "^4.3.5"
+    "astro": "^4.3.5",
+    "astro-navbar": "^2.3.1"
   }
 }

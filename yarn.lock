@@ -677,6 +677,11 @@ array-iterate@^2.0.0:
   resolved "https://registry.npmjs.org/array-iterate/-/array-iterate-2.0.1.tgz"
   integrity sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==
 
+astro-navbar@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/astro-navbar/-/astro-navbar-2.3.1.tgz#c035d6c1ada1b3f2079f1b3868e5ca5e3135102b"
+  integrity sha512-lLvhWS03Qc3heMU23adFwEnBUJFlL6gxYi0xPvIyX1atb2oCov4kOS/MaWOPGnvj2nK63szebUzlG+NdIoUZzQ==
+
 astro@^4.3.5:
   version "4.3.5"
   resolved "https://registry.npmjs.org/astro/-/astro-4.3.5.tgz"

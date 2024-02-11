@@ -1,0 +1,87 @@
+---
+import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+import ThemeToggle from "./ThemeToggle.astro";
+import { Image } from "astro:assets";
+import heyMemoji from "../assets/hey.webp";
+---
+
+<header class="header">
+  <Astronav closeOnClick>
+    <div class="icons">
+      <a href="#">
+        <Image
+          src={heyMemoji}
+          style="height: 3rem;width: 3rem;margin-top: -1.25rem;"
+          alt="hey waving memoji"
+        />
+      </a>
+      <MenuIcon class="menu-icon" />
+    </div>
+    <MenuItems class="hidden menu-items">
+      <ul class="menu-items__list">
+        <li>
+          <a href="#about" class="link link--nav">About</a>
+        </li>
+        <li>
+          <a href="#projects" class="link link--nav">Projects</a>
+        </li>
+        <li>
+          <a href="#skills" class="link link--nav">Skills</a>
+        </li>
+      </ul>
+      <div class="theme-toggle">
+        <ThemeToggle />
+      </div>
+    </MenuItems>
+  </Astronav>
+</header>
+
+<style>
+  .header {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    max-width: 1100px;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .icons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .menu-items__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .theme-toggle {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .theme-toggle__desktop {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .menu-items__list {
+      flex-direction: row;
+      gap: 0.75rem;
+    }
+    .theme-toggle {
+      /* display: none; */
+      margin-left: 0.75rem;
+      margin-right: 0.75rem;
+    }
+    .theme-toggle__desktop {
+      display: block;
+    }
+  }
+</style>
