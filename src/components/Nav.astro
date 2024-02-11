@@ -1,9 +1,11 @@
 ---
 import DarckToggle from "./DarckToggle.astro";
+import { Image } from "astro:assets";
+import heyMemoji from "../assets/hey.webp"
 ---
 
 <header class="header center">
-	<img src="assets/hey.png" style="height: 3rem;width: 3rem;margin-top: -1.25rem;" alt="hey waving memoji">
+	<Image src={heyMemoji} style="height: 3rem;width: 3rem;margin-top: -1.25rem;" alt="hey waving memoji" />
 
 	<nav class="center nav">
 		<ul class="nav__list">
