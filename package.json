@@ -11,9 +11,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@fontsource/poppins": "^5.0.8",
-    "animejs": "^3.2.1",
-    "astro": "^4.3.5",
-    "astro-navbar": "^2.3.1"
+    "@fontsource/poppins": "^5.1.0",
+    "animejs": "^3.2.2",
+    "astro": "^4.15.4",
+    "astro-navbar": "^2.3.3"
   }
 }
