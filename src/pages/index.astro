@@ -1,18 +1,20 @@
 ---
 // Component Imports
-import MainHead from '../components/MainHead.astro';
-import Footer from '../components/Footer.astro';
-import About from '../components/About.astro';
-import ScrollToTop from '../components/ScrollToTop.astro';
-import Skills from '../components/Skills.astro';
-import Projects from '../components/Projects.astro';
-import { getEntry } from 'astro:content';
-import Navbar from '../components/Navbar.astro';
+import MainHead from "../components/MainHead.astro";
+import Footer from "../components/Footer.astro";
+import About from "../components/About.astro";
+import ScrollToTop from "../components/ScrollToTop.astro";
+import Skills from "../components/Skills.astro";
+import Projects from "../components/Projects.astro";
+import { getEntry } from "astro:content";
+import Navbar from "../components/Navbar.astro";
 
 // Data Fetching: List all Markdown posts in the repo.
-const aboutMe = await getEntry('me', 'about');
+const aboutMe = await getEntry("aboutMe", "about");
 
-const response = await fetch('https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=Thomasevano');
+const response = await fetch(
+  "https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=Thomasevano"
+);
 const projects = await response.json();
 
 // Full Astro Component Syntax:
@@ -20,20 +22,19 @@ const projects = await response.json();
 ---
 
 <html lang="en">
-	<MainHead
-		title={`${aboutMe.data.name} - ${aboutMe.data.role}`}
-		description={aboutMe.data.description}
-	/>
-	<Navbar/>
-	<body class="light">
-		<div id="top" class="app">
-			<main>
-				<About about={aboutMe.data}/>
-				<Projects projects={projects}/>
-				<Skills skills={aboutMe.data.skills} />
-			</main>
-			<ScrollToTop />
-		</div>
-	</body>
-	<Footer />
+  <MainHead
+    title={`${aboutMe.data.name} - ${aboutMe.data.role}`}
+    description={aboutMe.data.description}
+  />
+  <Navbar />
+  <body class="light">
+    <div id="top" class="app">
+      <main>
+        <About about={aboutMe.data} />
+        <Projects projects={projects} />
+        <Skills skills={aboutMe.data.skills} />
+      </main>
+      <ScrollToTop />
+    </div>
+  </body><Footer />
 </html>
