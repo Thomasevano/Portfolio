@@ -3,6 +3,16 @@ import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 import ThemeToggle from "./ThemeToggle.astro";
 import { Image } from "astro:assets";
 import heyMemoji from "../assets/hey.webp";
+
+import {
+  getLangFromUrl,
+  useTranslations,
+  useTranslatedPath,
+} from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 
 <header class="header">
@@ -18,13 +28,23 @@ import heyMemoji from "../assets/hey.webp";
     <MenuItems class="hidden menu-items">
       <ul class="menu-items__list">
         <li>
-          <a href="#about" class="link link--nav">About</a>
+          <a href={translatePath("/")} class="link link--nav">{t("nav.home")}</a
+          >
         </li>
         <li>
-          <a href="#projects" class="link link--nav">Projects</a>
+          <a href={translatePath("/#about")} class="link link--nav"
+            >{t("nav.about")}</a
+          >
         </li>
         <li>
-          <a href="#skills" class="link link--nav">Skills</a>
+          <a href={translatePath("/#projects")} class="link link--nav"
+            >{t("nav.projects")}</a
+          >
+        </li>
+        <li>
+          <a href={translatePath("/#skills")} class="link link--nav"
+            >{t("nav.skills")}</a
+          >
         </li>
       </ul>
       <div class="theme-toggle">

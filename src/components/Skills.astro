@@ -1,32 +1,32 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const { skills } = Astro.props;
 ---
 
 <section id="skills" class="section skills">
   <h2 class="section__title">
-    Skills
+    {t("title.skills")}
   </h2>
   <ul class="skills__list">
-    {skills.map((skill: string) => 
-      <li class="skills__list-item">
-        {skill}
-      </li>
-    )}
+    {skills.map((skill: string) => <li class="skills__list-item">{skill}</li>)}
   </ul>
 </section>
 
 <style>
-.skills__list {
-  max-width: 450px;
-  width: 95%;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+  .skills__list {
+    max-width: 450px;
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-.skills__list-item {
-  margin: 0.5em;
-}
-
+  .skills__list-item {
+    margin: 0.5em;
+  }
 </style>

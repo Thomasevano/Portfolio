@@ -1,0 +1,22 @@
+---
+import MainHead from "../components/MainHead.astro";
+import Footer from "../components/Footer.astro";
+import ScrollToTop from "../components/ScrollToTop.astro";
+import Navbar from "../components/Navbar.astro";
+import { getLangFromUrl } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+
+const { pageTitle, description } = Astro.props;
+---
+
+<html lang={lang}>
+  <MainHead title={pageTitle} description={description} />
+  <Navbar />
+  <body class="light">
+    <div id="top" class="app">
+      <slot />
+      <ScrollToTop />
+    </div>
+  </body><Footer />
+</html>
