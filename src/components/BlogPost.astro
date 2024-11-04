@@ -1,4 +1,78 @@
 ---
-const { title, url } = Astro.props;
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import handleDate from "../utils/handleDate";
+const { url, post } = Astro.props;
+
+const pageLang = getLangFromUrl(Astro.url);
+const t = useTranslations(pageLang);
 ---
-<li><a class="link" href={url}>{title}</a></li>
+
+<a class="article" href={url}>
+  <p class="article__date">
+    {handleDate(post.pubDate, pageLang)}
+  </p>
+  <h2 class="article__title">{post.title}</h2>
+  <p class="article__description">{post.description}</p>
+  <ul class="article__tags">
+    {
+      post.tags
+        ? post.tags.map((tag) => <li class="article__tags-item">#{tag}</li>)
+        : ""
+    }
+  </ul>
+</a>
+
+<style>
+  .article {
+    padding: 1em 2em;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s linear;
+    width: stretch;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .article:hover {
+    transform: translateY(-7px);
+  }
+  .article__title {
+    margin: 0.5em 0;
+  }
+
+  .article__tags {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    margin: 1.2em 0;
+  }
+
+  .article__tags-item {
+    margin: 0.5em;
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--clr-primary);
+    background-color: var(--clr-bg);
+    border: 1px solid var(--clr-primary);
+    padding: 0.2em 0.5em;
+    border-radius: 4em;
+    text-decoration: none;
+    transition: background-color 0.2s linear;
+
+    &:hover {
+      background-color: var(--clr-primary);
+      color: var(--clr-bg);
+      border-color: var(--clr-bg);
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+</style>

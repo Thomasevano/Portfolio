@@ -1,22 +1,68 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { getCollection } from "astro:content";
 import BlogPost from "../../components/BlogPost.astro";
 
-// export async function getStaticPaths() {
-//   const allPosts = await getCollection("posts");
-//   return allPosts;
-// }
-const allPosts = await getCollection("posts");
+export async function getStaticPaths() {
+  const blogPosts = await getCollection("posts");
+
+  return ["en", "fr"].flatMap((lang) => {
+    const posts_filtered = blogPosts
+      ?.filter((post) => {
+        const [postLang, ...slug] = post.slug.split("/");
+        return postLang === lang;
+      })
+      .map((post) => {
+        const [postLang, ...slug] = post.slug.split("/");
+        return {
+          params: { lang: postLang, slug: slug.join("/") || undefined },
+          props: post,
+        };
+      })
+      .sort((a, b) => b.data?.pubDate - a.data?.pubDate);
+    return { params: { lang }, props: { posts: posts_filtered } };
+  });
+}
+
 const pageTitle = "Blog";
+const pageLang = getLangFromUrl(Astro.url);
+const { posts } = Astro.props;
+const t = useTranslations(pageLang);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <ul>
-    {
-      allPosts.map((post) => (
-        <BlogPost url={`/posts/${post.slug}/`} title={post.data.title} />
-      ))
-    }
-  </ul>
+  <section class="articles">
+    <h1 class="articles__title">{t("blog.title")}</h1>
+    <ul class="articles__grid">
+      {
+        posts
+          ? posts.map((post) => (
+              <BlogPost
+                url={`/${post.params.lang}/posts/${post.params.slug}/`}
+                post={post.props.data}
+              />
+            ))
+          : t("blog.no-posts")
+      }
+    </ul>
+  </section>
 </BaseLayout>
+
+<style>
+  .articles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .articles__title {
+    margin-bottom: 2rem;
+  }
+  .articles__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24em, 1fr));
+    grid-gap: 2em;
+  }
+</style>
