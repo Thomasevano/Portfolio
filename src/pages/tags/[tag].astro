@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   ];
   return uniqueTags.map((tag: string) => {
     const filteredPosts = allPosts.filter((post) =>
-      post.data.tags.includes(tag),
+      post.data.tags.includes(tag)
     );
     return {
       params: { tag },
@@ -29,7 +29,7 @@ const { posts } = Astro.props;
   <ul>
     {
       posts.map((post) => (
-        <BlogPost url={`/posts/${post.slug}/`} title={post.data.title} />
+        <BlogPost url={`/posts/${post.slug}/`} post={post.data} />
       ))
     }
   </ul>

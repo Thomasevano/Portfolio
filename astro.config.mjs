@@ -12,5 +12,6 @@ export default defineConfig({
       prefixDefaultLocale: true,
       redirectToDefaultLocale: true
     }
-  }
+  },
+  site: 'https://thomasevano.fr'
 });

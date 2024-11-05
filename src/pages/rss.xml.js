@@ -13,6 +13,6 @@ export async function GET(context) {
       description: post.data.description,
       link: `/posts/${post.slug}/`,
     })),
-    customData: `<language>en-us</language>`,
+    customData: `<language>fr-fr</language>`,
   });
 }
