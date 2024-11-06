@@ -43,7 +43,7 @@ const t = useTranslations(pageLang);
           ? posts.map((post) => (
               <BlogPost
                 url={`/${post.params.lang}/posts/${post.params.slug}/`}
-                post={post.props.data}
+                post={post}
               />
             ))
           : t("blog.no-posts")

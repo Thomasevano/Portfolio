@@ -2,13 +2,14 @@
 import { useTranslations } from "../i18n/utils";
 import BaseLayout from "./BaseLayout.astro";
 
-const { frontmatter, lang } = Astro.props;
+const { frontmatter, lang, minutesRead } = Astro.props;
 const formattedDate = frontmatter.pubDate.toLocaleString(lang);
 const t = useTranslations(lang);
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
   <h1>{frontmatter.title}</h1>
+  <p>{minutesRead}</p>
   <p>{frontmatter.pubDate.toString().slice(0, 15)}</p>
   <p>{t("blog.date")} {formattedDate}</p>
   <p><em>{frontmatter.description}</em></p>

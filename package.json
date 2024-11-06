@@ -18,6 +18,8 @@
     "astro": "^4.16.7",
     "astro-navbar": "^2.3.4",
     "lucide-astro": "^0.454.0",
+    "mdast-util-to-string": "^4.0.0",
+    "reading-time": "^1.5.0",
     "sharp": "^0.33.5"
   }
 }

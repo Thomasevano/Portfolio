@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { remarkReadingTime } from './remark-reading-time.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,6 +13,9 @@ export default defineConfig({
       prefixDefaultLocale: true,
       redirectToDefaultLocale: true
     }
+  },
+  markdown: {
+    remarkPlugins: [remarkReadingTime],
   },
   site: 'https://thomasevano.fr'
 });
