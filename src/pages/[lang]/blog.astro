@@ -20,7 +20,10 @@ export async function getStaticPaths() {
           props: post,
         };
       })
-      .sort((a, b) => b.data?.pubDate - a.data?.pubDate);
+      .sort(
+        (a, b) =>
+          b.props.data.pubDate.valueOf() - a.props.data.pubDate.valueOf()
+      );
     return { params: { lang }, props: { posts: posts_filtered } };
   });
 }
