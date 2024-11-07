@@ -8,22 +8,22 @@ const t = useTranslations(pageLang);
 const { Content, remarkPluginFrontmatter } = await post.props.render();
 ---
 
-<a class="article" href={url}>
-  <div class="article--header">
-    <p class="article--header__date">
+<a class="post" href={url}>
+  <div class="post--header">
+    <p class="post--header__date">
       {handleDate(post.props.data.pubDate, pageLang)}
     </p>
-    <p class="article--header__minutes-read">
+    <p class="post--header__minutes-read">
       {remarkPluginFrontmatter.minutesRead}
     </p>
   </div>
-  <h2 class="article__title">{post.props.data.title}</h2>
-  <p class="article__description">{post.props.data.description}</p>
-  <ul class="article__tags">
+  <h2 class="post__title">{post.props.data.title}</h2>
+  <p class="post__description">{post.props.data.description}</p>
+  <ul class="post__tags">
     {
       post.props.data.tags
         ? post.props.data.tags.map((tag) => (
-            <li class="article__tags-item">#{tag}</li>
+            <li class="post__tags-item">#{tag}</li>
           ))
         : ""
     }
@@ -31,41 +31,33 @@ const { Content, remarkPluginFrontmatter } = await post.props.render();
 </a>
 
 <style>
-  .article {
+  .post {
     padding: 1em 2em;
-    margin: 0 auto;
     box-shadow: var(--shadow);
-    transition: transform 0.2s linear;
-    width: stretch;
-    width: -webkit-fill-available;
-    width: -moz-available;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  .article:hover {
-    transform: translateY(-7px);
-  }
-  .article--header {
+  .post--header {
     display: flex;
     justify-content: space-between;
   }
-  .article--header__date,
-  .article--header__minutes-read {
+  .post--header__date,
+  .post--header__minutes-read {
     font-size: 0.8rem;
   }
-  .article__title {
+  .post__title {
     margin: 0.5em 0;
   }
 
-  .article__tags {
+  .post__tags {
     display: flex;
     flex-wrap: wrap;
     margin: 1.2em 0 0;
   }
 
-  .article__tags-item {
+  .post__tags-item {
     margin: 0.5em;
     font-weight: 500;
     font-size: 0.8rem;
