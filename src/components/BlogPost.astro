@@ -1,10 +1,8 @@
 ---
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
-import handleDate from "../utils/handleDate";
+import { getLangFromUrl, handleDate } from "../i18n/utils";
 const { url, post } = Astro.props;
 
 const pageLang = getLangFromUrl(Astro.url);
-const t = useTranslations(pageLang);
 const { Content, remarkPluginFrontmatter } = await post.props.render();
 ---
 

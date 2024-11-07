@@ -17,3 +17,13 @@ export function useTranslatedPath(lang: keyof typeof ui) {
     return !showDefaultLang && l === defaultLang ? path : `/${l}${path}`
   }
 }
+
+export function handleDate(date: Date, lang: string) {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  return new Intl.DateTimeFormat(lang, options).format(date);
+}
