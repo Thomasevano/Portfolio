@@ -7,18 +7,25 @@ export async function getStaticPaths() {
 
   const paths = blogPosts.map((post) => {
     const [lang, ...slug] = post.slug.split("/");
-    return { params: { lang, slug: slug.join("/") || undefined }, props: post };
+    return {
+      params: { lang, slug: slug.join("/") || undefined },
+      props: { post },
+    };
   });
 
   return paths;
 }
 
 const { lang, slug } = Astro.params;
-const post = Astro.props;
+const { post } = Astro.props;
 
-const { Content } = await post.render();
+const { Content, remarkPluginFrontmatter } = await post.render();
 ---
 
-<MarkdownPostLayout frontmatter={post.data} lang={lang}>
+<MarkdownPostLayout
+  frontmatter={post.data}
+  lang={lang}
+  minutesRead={remarkPluginFrontmatter.minutesRead}
+>
   <Content />
 </MarkdownPostLayout>

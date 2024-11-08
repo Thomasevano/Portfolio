@@ -1,28 +1,131 @@
 ---
-import { useTranslations } from "../i18n/utils";
+import { useTranslations, handleDate } from "../i18n/utils";
 import BaseLayout from "./BaseLayout.astro";
 
 const { frontmatter, lang, minutesRead } = Astro.props;
-const formattedDate = frontmatter.pubDate.toLocaleString(lang);
 const t = useTranslations(lang);
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-  <h1>{frontmatter.title}</h1>
-  <p>{minutesRead}</p>
-  <p>{frontmatter.pubDate.toString().slice(0, 15)}</p>
-  <p>{t("blog.date")} {formattedDate}</p>
-  <p><em>{frontmatter.description}</em></p>
-  <ul>
-    {
-      frontmatter.tags.map((tag: string) => (
-        <li style="margin: 0.25rem 0">
-          <a class="link" href={`/tags/${tag}`}>
-            {tag}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-  <slot />
+  <section class="post">
+    <div class="post--header">
+      <h1 class="post--header__title">{frontmatter.title}</h1>
+      <div class="post--header__meta">
+        <p class="post--header__date">
+          {t("blog.date")}
+          {handleDate(frontmatter.pubDate, lang)}
+        </p>
+        <p class="post--header__minutes-read">
+          {minutesRead}
+        </p>
+      </div>
+      <p><em>{frontmatter.description}</em></p>
+      <ul class="post--header__tags">
+        {
+          frontmatter.tags.map((tag: string) => (
+            <li class="post--header__tags--item">
+              <a href={`/tags/${tag}`}>#{tag}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="post--content">
+      <slot />
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .post {
+    margin: 2em auto;
+  }
+  .post--header {
+    margin-bottom: 1em;
+  }
+  .post--header__title {
+    margin-bottom: 0.5em;
+  }
+  .post--header__meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+  }
+
+  .post--header__tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1.2em 0 0;
+    gap: 0.5em;
+  }
+  .post--header__tags--item {
+    font-size: 0.8rem;
+    color: var(--clr-primary);
+    background-color: var(--clr-bg);
+    border: 1px solid var(--clr-primary);
+    padding: 0.2em 0.5em;
+    border-radius: 4em;
+    text-decoration: none;
+    transition: background-color 0.2s linear;
+
+    &:hover {
+      background-color: var(--clr-primary);
+      color: var(--clr-bg);
+      border-color: var(--clr-bg);
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .post--content {
+    margin: 2em 0;
+    border-top: 1px solid var(--clr-fg-alt);
+    padding-top: 2em;
+
+    p {
+      line-height: 1.5;
+      font-size: 1.1rem;
+      color: var(--clr-fg-alt);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 1em 0;
+    }
+
+    ul > li {
+      margin-bottom: 0.5em;
+      list-style-type: disc;
+      color: var(--clr-fg-alt);
+      font-size: 1.1rem;
+      line-height: 2;
+      font-weight: 400;
+      margin-left: 2em;
+    }
+
+    a {
+      color: var(--clr-primary);
+      text-decoration: underline;
+    }
+
+    h2,
+    h3 {
+      margin: 1em 0;
+    }
+
+    pre {
+      padding: 1em;
+      background-color: var(--clr-bg-alt);
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      margin: 1em 0;
+    }
+  }
+</style>

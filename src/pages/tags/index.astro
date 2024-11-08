@@ -11,6 +11,14 @@ const pageTitle = "Tags";
   <h1>{pageTitle}</h1>
   <p>This is where all the tags of the article.</p>
   <ul>
-    {tags.map((tag) => <li style="margin: 0.25rem 0"><a class="link" href={`/tags/${tag}`}>{tag}</a></li>)}
+    {
+      tags.map((tag) => (
+        <li style="margin: 0.25rem 0">
+          <a class="link" href={`/tags/${tag}`}>
+            {tag}
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </BaseLayout>
