@@ -1,5 +1,6 @@
 ---
 import { FileText, Github, Linkedin } from "lucide-astro";
+import blueSkyIcon from "../assets/Bluesky_Logo.svg";
 const { about } = Astro.props;
 ---
 
@@ -52,6 +53,14 @@ const { about } = Astro.props;
       target="_blank"
     >
       <p class="x-logo">&Xopf;</p>
+    </a>
+    <a
+      href={about.bluesky}
+      aria-label="bluesky"
+      class="link link--icon"
+      target="_blank"
+    >
+      <img src={blueSkyIcon.src} alt="bluesky logo" style="width: 1.5rem" />
     </a>
   </div>
 </div>
