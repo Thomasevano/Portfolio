@@ -1,0 +1,26 @@
+---
+import About from "../components/About.astro";
+import Skills from "../components/Skills.astro";
+import Projects from "../components/Projects.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const aboutMeInfosLocalized = await getCollection("aboutMe", (aboutMeData) => {
+  return aboutMeData.id.includes("fr/");
+});
+
+const response = await fetch(
+  "https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=Thomasevano"
+);
+const projects = await response.json();
+const aboutMeInfos = aboutMeInfosLocalized[0];
+---
+
+<BaseLayout
+  title={`${aboutMeInfos.data.name} - ${aboutMeInfos.data.role}`}
+  description={aboutMeInfos.data.description}
+>
+  <About about={aboutMeInfos.data} />
+  <Projects projects={projects} />
+  <Skills skills={aboutMeInfos.data.skills} />
+</BaseLayout>

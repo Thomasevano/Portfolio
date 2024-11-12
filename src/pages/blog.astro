@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { useTranslations } from "../i18n/utils";
+import { getCollection } from "astro:content";
+import BlogPost from "../components/BlogPost.astro";
+import { defaultLang } from "../i18n/ui";
+
+const blogPosts = await getCollection("posts", (post) => {
+  return post.data.draft !== true && post.id.includes("fr/");
+});
+
+const posts = blogPosts.map((post) => {
+  const [postLang, ...slug] = post.slug.split("/");
+  console.log({ postLang, slug });
+  return {
+    params: { lang: postLang, slug: slug.join("/") || undefined },
+    props: post,
+  };
+});
+
+const pageTitle = "Blog";
+const t = useTranslations(defaultLang);
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <section class="posts">
+    <h1 class="posts__title">{t("blog.title")}</h1>
+    <ul class="posts__grid">
+      {
+        posts
+          ? posts.map(
+              (post) => (
+                console.log({ post }),
+                (<BlogPost url={`/posts/${post.params.slug}/`} post={post} />)
+              )
+            )
+          : t("blog.no-posts")
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .posts__title {
+    margin-bottom: 2rem;
+  }
+  .posts__grid {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 2em;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .posts__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

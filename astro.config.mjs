@@ -9,10 +9,6 @@ export default defineConfig({
     fallback: {
       en: "fr",
     },
-    routing: {
-      prefixDefaultLocale: true,
-      redirectToDefaultLocale: true
-    }
   },
   markdown: {
     remarkPlugins: [remarkReadingTime],

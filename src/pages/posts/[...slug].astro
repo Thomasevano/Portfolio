@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import MarkdownPostLayout from "../../layouts/MarkdownPostLayout.astro";
+import { defaultLang } from "../../i18n/ui";
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection("posts");
+
+  const paths = blogPosts.map((post) => {
+    const [lang, ...slug] = post.slug.split("/");
+    return {
+      params: { lang, slug: slug.join("/") || undefined },
+      props: { post },
+    };
+  });
+
+  return paths;
+}
+const { post } = Astro.props;
+
+const { Content, remarkPluginFrontmatter } = await post.render();
+---
+
+<MarkdownPostLayout
+  frontmatter={post.data}
+  lang={defaultLang}
+  minutesRead={remarkPluginFrontmatter.minutesRead}
+>
+  <Content />
+</MarkdownPostLayout>
