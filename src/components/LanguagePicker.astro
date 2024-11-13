@@ -2,7 +2,13 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { languages } from "../i18n/ui";
 
-const currentPath = Astro.url.pathname.split("/").reverse().shift();
+const pageLang = Astro.url.pathname.includes("en");
+let pathIndex = 0;
+if (pageLang) {
+  pathIndex = 3;
+}
+
+const currentPath = Astro.url.pathname.slice(pathIndex);
 ---
 
 <ul>
