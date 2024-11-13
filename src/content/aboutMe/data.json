@@ -1,13 +1,10 @@
 {
   "name": "Thomas Evano",
   "role": "Software Engineer",
-  "description": "I’m a passionate french software engineer HETIC Alumni & Ex-PIX actually open to work. I love to learn new things and build cool apps. I'm also passionate about music, sports and video games.",
   "linkedin": "https://www.linkedin.com/in/thomasevano/",
   "github": "https://github.com/Thomasevano",
   "twitter": "https://twitter.com/tvn_dev",
   "bluesky": "https://bsky.app/profile/tvn.dev",
-  "mail": "",
-  "resumeLink": "/resume/thomas-evano-resume.pdf",
   "skills": [
     "JS",
     "TypeScript",

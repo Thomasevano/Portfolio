@@ -1,11 +1,10 @@
 ---
-import About from "../components/About.astro";
-import Skills from "../components/Skills.astro";
-import Projects from "../components/Projects.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import About from "../../components/About.astro";
+import Skills from "../../components/Skills.astro";
+import Projects from "../../components/Projects.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { defaultLang } from "../i18n/ui";
-import { useTranslations } from "../i18n/utils";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
 const aboutMeInfosData = await getCollection("aboutMe");
 
@@ -15,7 +14,8 @@ const response = await fetch(
 const projects = await response.json();
 
 const aboutMeInfos = aboutMeInfosData[0];
-const t = useTranslations(defaultLang);
+const pageLang = getLangFromUrl(Astro.url);
+const t = useTranslations(pageLang);
 const aboutMeData = {
   ...aboutMeInfos.data,
   description: t("aboutMe.description"),

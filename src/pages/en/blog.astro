@@ -1,12 +1,11 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { useTranslations } from "../i18n/utils";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import { getCollection } from "astro:content";
-import BlogPost from "../components/BlogPost.astro";
-import { defaultLang } from "../i18n/ui";
+import BlogPost from "../../components/BlogPost.astro";
 
 const blogPosts = await getCollection("posts", (post) => {
-  return post.data.draft !== true && post.id.includes("fr/");
+  return post.data.draft !== true && post.id.includes("en/");
 });
 
 const posts = blogPosts.map((post) => {
@@ -18,24 +17,27 @@ const posts = blogPosts.map((post) => {
 });
 
 const pageTitle = "Blog";
-const t = useTranslations(defaultLang);
+const pageLang = getLangFromUrl(Astro.url);
+const t = useTranslations(pageLang);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <section class="posts">
     <h1 class="posts__title">{t("blog.title")}</h1>
-    <ul class="posts__grid">
-      {
-        posts
-          ? posts.map(
-              (post) => (
-                console.log({ post }),
-                (<BlogPost url={`/posts/${post.params.slug}/`} post={post} />)
-              )
-            )
-          : t("blog.no-posts")
-      }
-    </ul>
+    {
+      posts.length ? (
+        <ul class="posts__grid">
+          {posts.map((post) => (
+            <BlogPost
+              url={`/${post.params.lang}/posts/${post.params.slug}/`}
+              post={post}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p>{t("blog.no-posts")}</p>
+      )
+    }
   </section>
 </BaseLayout>
 
