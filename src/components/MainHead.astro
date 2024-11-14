@@ -3,34 +3,39 @@ import "../styles/reset.css";
 import "../styles/main.css";
 const { title, description } = Astro.props;
 
-const image = `../assets/hey.webp`;
+const image = `../assets/memoji.jpeg`;
 import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/500.css";
 import "@fontsource/poppins/700.css";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" property="og:description" content={description} />
-  <meta name="viewport" content="width=device-width" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="generator" content={Astro.generator} />
   <script defer data-domain="thomasevano.fr" src={import.meta.env.PLAUSIBLE_URL}
   ></script>
+  <link rel="canonical" href={canonicalURL} />
   <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
 
-  <meta name="robots" content="/favicon/sitemap-index.xml" />
+  <meta name="robots" content="/sitemap-index.xml" />
   <!-- Basic OG tags for sharing your website's content on platforms like Facebook and LinkedIn -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={Astro.url.origin} />
-  <meta property="og:image" content={image} />
+  <meta property="og:image" content={new URL(image, Astro.url)} />
   <!-- Basic Twitter Card tags -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content={Astro.url} />
   <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={image} />
+  <meta property="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(image, Astro.url)} />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
   <link
