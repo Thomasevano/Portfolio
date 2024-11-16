@@ -24,18 +24,17 @@ const t = useTranslations(defaultLang);
 <BaseLayout pageTitle={pageTitle}>
   <section class="posts">
     <h1 class="posts__title">{t("blog.title")}</h1>
-    <ul class="posts__grid">
-      {
-        posts
-          ? posts.map(
-              (post) => (
-                console.log({ post }),
-                (<BlogPost url={`/posts/${post.params.slug}/`} post={post} />)
-              )
-            )
-          : t("blog.no-posts")
-      }
-    </ul>
+    {
+      posts.length > 0 ? (
+        <ul class="posts__grid">
+          {posts.map((post) => (
+            <BlogPost url={`/posts/${post.params.slug}/`} post={post} />
+          ))}
+        </ul>
+      ) : (
+        <p>{t("blog.no-posts")}</p>
+      )
+    }
   </section>
 </BaseLayout>
 
