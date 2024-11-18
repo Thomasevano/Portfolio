@@ -1,38 +1,36 @@
 ---
-title: Comment construire une image Docker avec des variables d'environnement dans GitHub action ?
-pubDate: 2024-11-15
-description: Pour réduire le temps de build de mon image Docker sur mon instance de déploiement, j'ai voulu le faire avec une github action, voici ce que j'ai appris (ce n'était pas aussi simple que je le pensais).
+title: How to build a Docker image with environment variables in a Github action ?
+pubDate: 2024-11-26
+description: In order to reduce the build time of the Docker image, of my application when deploying it to my instance, I came up with the idea of doing this via Github action. Here's what I learned (it wasn't as simple as I thought.)
 author: Thomas Evano
 tags:
   - docker
   - github-action
-draft: true
+draft: false
 ---
-J'héberge mes projets sur une instance [Coolify](https://coolify.io). C'est génial, ça marche très bien, ca faisait un moment que je cherchais un PaaS que je pouvais héberger moi même. Le seul problème c'est qu'en utilisant la version Cloud (instance gérer par Coolify), le temps de build d'une application est plutôt long et d'autant plus lorsqu'il s'agit d'une image Docker.
-Afin de réduire ce temps de build, je me suis tourné vers les github actions.
+I host my projects on a [Coolify](https://coolify.io) instance. it's an amazing product, it works really well, I've been looking for a while to find a self-hosted PaaS to deploy my projects on an instance that I own. The only problem for now is that when using [Cloud version](https://coolify.io/cloud) (Coolify instance managed by them), I noticed a rather long build time even more so when using a Docker image. To reduce build time, I came up with a solution that I knew would be faster, Github actions.
 
-## Ou mettre les variables dans Github ?
+## Where to store variables on Github ?
 
-Mon image Docker nécessite des variables d'environnement pour fonctionner. Il faut alors les mettre quelque part sur Github. Pour cela il suffit de se rendre dans les paramètres du repository
-![section paramètre du menu principal c'un repo github](../../../assets/articles/comment-construire-une-image-docker-avec-des-variables-denvironnement-dans-une-github-action/github_repository_settings_tabs.png)
+My Docker image needs environnment variables to work. I need to set them somewhere in Github. For this I need to go to the settings of my repository.
+![section "Settings" of the main menu of a Github repository](../../../assets/articles/comment-construire-une-image-docker-avec-des-variables-denvironnement-dans-une-github-action/github_repository_settings_tabs.png)
 
-Puis dans l'onglet "Security" > "Secrets and Variables" > "actions"
-![catégorie "security" du menu lateral des parametres d'un repository github](../../../assets/articles/comment-construire-une-image-docker-avec-des-variables-denvironnement-dans-une-github-action/security_side_menu_repository_settings.png)
+Then in the "Security" tab > "Secrets and Variables" > "actions"
+![category "security" of the sidebar of the repository settings](../../../assets/articles/comment-construire-une-image-docker-avec-des-variables-denvironnement-dans-une-github-action/security_side_menu_repository_settings.png)
 
-Lorsque l'on se retrouve alors sur cette page on se retrouve un peu perdu, personnellement. Il y a alors 4 emplacements divsisé en 2 onglets ou entrer ses variables. D'abord dans l'ongle "Secrets" dans la section "Environment secrets" ou "Repository secrets", puis dans l'onglet "Variables" qui est composé des meme emplacements.
-![github actions secrets et variables](../../../assets/articles/comment-construire-une-image-docker-avec-des-variables-denvironnement-dans-une-github-action/actions_secrets_tab.png)
-<a id="github_repository_secrets"></a>
-Commencer par lire les 2 première lignes peut nous indiquer le meilleur emplacement selon notre besoins. Dans mon cas, vu qu'il s'agit de token d'authentification a des services externes je me dis que l'onglet secrets est plus adapté. J'ai également un autre indice qui me pousse a cette réflexion dont je ne vous ai pas encore parlé c'est que je possèdes déja 2 "repository secrets" qui me permete d'automatiquement déployé une nouvelle version de mon application sur coolify. En effet j'ai suivi [la documentation de Coolify](https://coolify.io/docs/knowledge-base/git/github/github-actions) a ce sujet.
+When you arrive on this page, there is 4 places divided in 2 tabs where you can set your variables. First in the "Secrets" tab in the "Environment secrets" section, then in the "Variables" tab which is at the same place.
+![github actions secrets and variables](../../../assets/articles/comment-construire-une-image-docker-avec-des-variables-denvironnement-dans-une-github-action/actions_secrets_tab.png)
+
+The first lines tells us the best way to set the variables depending our needs. In my case, as it's confidentials variables, the **Secrets** tab is the most appropriate.
 
 ![my secrets variables blured](../../../assets/articles/comment-construire-une-image-docker-avec-des-variables-denvironnement-dans-une-github-action/github_repository_secrets.png)
-Une fois toutes mes variables nécessaires rentrées dans le 'repository secrets', il ne me reste plus qu'a les utiliser dans ma github action
+Once all my variables are set in the 'repository secrets' section, it's time to use them in my github action.
 
-## Comment les utiliser dans la Github action
+## How to use them in a Github action
 
-Le plus facile est fait. Je pensais que le reste le serait tout autant, mais dans ma recherche ca n'a fait qu'empirer mais il existe différentes manière de faire pour transmettre des valeurs a un Dockerfile a travers une github action.
+There is multiple ways to use variables inside a github action. As a good developer, I started to follow [Github documenatation](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#using-secrets-in-a-workflow), thinking naïvely that it would work the first time (spoiler: it's rare in development).
 
-J'ai d'abord suivi [la doc](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#using-secrets-in-a-workflow), comme tout bon développeur, pensant naïvement que cela allait marcher du premier coup (spoiler: c'est rare en développement).
-Mon erreur a été de ne pas tout de suite penser au fait que je voulais les transmettre a un Dockerfile. Une petite recherche plus tard prenant ceci en considération me voici dans la [documentation](https://docs.docker.com/build/ci/github-actions/secrets/) de Docker alors bien plus adapté. Je m'applique donc a reproduire cela dans ma Github action:
+My mistake was to not immediately think that I wanted to use them inside a Dockerfile. One little research later, taking this into consideration, here i am reading [Docker documentation](https://docs.docker.com/build/ci/github-actions/secrets/) then much more suited to my specific case. So I took care of reproducing this in my Github action, and there is the code:
 
 ```yaml
 - name: Build image and push to registry
@@ -47,30 +45,24 @@ Mon erreur a été de ne pas tout de suite penser au fait que je voulais les tra
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 ```
 
-<a id="secrets_github_action"></a>
+## Using the variable in the Dockerfile
 
-Il faut maintenant utiliser cette variable dans le Dockerfile.
+Inside Docker documentation, it is indicated that the secret must be used as such:
 
-## Utiliser la variable dans le Dockerfile
-
-Dans la documentation de Docker cité précédemment il est indiqué que le secret doit etre utilisé comme ceci:
-
-```Dockerfile
+```dockerfile
 RUN --mount=type=secret,id=github_token,env=YOUR_SECRET
 ```
 
-Dans mon cas cela n'a pas marché. C'est l'étape qui m'a causé le plus de problème, pendant un moment il m'était impossible d'avoir cette valeur dans mon Dockerfile. Heureusement un membre de la communauté du Discord de Coolify m'a bien aidé et apparu avec cette solution:
+In my case, this didn't work. It's the step that caused me the most trouble, during a moment, I was unable to have this value in my Dockerfile. Fortunately, a member of the Coolify Discord community helped me and appeared with this solution:
 
-```Dockerfile
+```dockerfile
 RUN  --mount=type=secret,id=your_secret \
   echo "YOUR_SECRET=$(cat /run/secrets/your_secret)" >> .env.production
 ```
 
-<a id="secrets_at_buildtime"></a>
+I will be honest, I still don't know how this magic works, but it works. If you understand it, any help is welcome to help me understand how it works.
 
-Encore aujourd'hui je ne sais pas comment cette magie opère mais cela marche
-
-### ⚠️ Les variables doivent etre placé au moment du build dans votre Dockerfile, juste avant la commande
+### ⚠️ The variables must be placed at build time in your Dockerfile, just before the command
 
 ```bash
 npm run build
@@ -78,11 +70,8 @@ npm run build
 
 ## Conclusion
 
-J'espère que c'est article permettra d'aider d'autres personnes qui ont rencontré ce même problème. Je vous présente bientôt l'application pour laquelle j'ai rencontré ce problème pensez a vous abonner au fluxRSS pour ne rien louper.
-C'est mon premier article et je me suis un peu éparpiller entre le tutoriel et le récit de comment j'ai réussi a faire fonctionner tout cela ensemble et je comprends ceux qui voudraient directement avoir la solution et pas s'embêter avec toute cette lecture.
+I hope this article will help other peoples who have encountered this problem.
 
-### TLDR
+This is my first article, and I hope to write many more on subjects that I'm passionate about our other problems I have encountered and that I succeed in solving like this one.
 
-- [Entrez les variables dans la catégorie secrets du repo Github](#github_repository_secrets)
-- [Utiliser les variables dans la Github action](#secrets_github_action)
-- [Utiliser les variables dans le Dockerfile lors du build de l'image](#secrets_at_buildtime)
+I will soon introduce you to the application for which I encountered this problem. Don't forget to subscribe to the RSS feed so you don't miss a thing, and follow me on Twitter [@tvn_dev](https://twitter.com/tvn_dev) and Bluesky [@tvn.dev](https://bsky.app/profile/tvn.dev).
