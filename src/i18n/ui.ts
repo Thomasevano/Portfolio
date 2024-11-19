@@ -18,6 +18,7 @@ export const ui = {
     'nav.blog': 'Blog',
     'nav.projects': 'Projects',
     'nav.skills': 'Skills',
+    'post.link-to-other-lang': 'This post is also available in french 🇫🇷',
     'title.projects': 'Projects',
     'title.skills': 'Skills'
   },
@@ -32,6 +33,7 @@ export const ui = {
     'nav.blog': 'Blog',
     'nav.projects': 'Projets',
     'nav.skills': 'Compétences',
+    'post.link-to-other-lang': 'Cet article est aussi disponible en anglais 🇬🇧',
     'title.projects': 'Projets',
     'title.skills': 'Compétences'
   },

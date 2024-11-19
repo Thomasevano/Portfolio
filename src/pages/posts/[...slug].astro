@@ -17,6 +17,7 @@ export async function getStaticPaths() {
   return paths;
 }
 const { post } = Astro.props;
+const { slug } = Astro.params;
 
 const { Content, remarkPluginFrontmatter } = await post.render();
 ---
@@ -25,6 +26,7 @@ const { Content, remarkPluginFrontmatter } = await post.render();
   frontmatter={post.data}
   lang={defaultLang}
   minutesRead={remarkPluginFrontmatter.minutesRead}
+  slug={slug}
 >
   <Content />
 </MarkdownPostLayout>
