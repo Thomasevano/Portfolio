@@ -9,6 +9,7 @@ import {
   useTranslations,
   useTranslatedPath,
 } from "../i18n/utils";
+import { Rss } from "lucide-astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -52,6 +53,9 @@ const translatePath = useTranslatedPath(lang);
           >
         </li>
       </ul>
+      <a href="rss.xml" class="rss-link link link--nav"
+        ><Rss alt=`${t("footer.subscribe-rss")}` /></a
+      >
       <div class="theme-toggle">
         <ThemeToggle />
       </div>
@@ -77,8 +81,7 @@ const translatePath = useTranslatedPath(lang);
   }
 
   .theme-toggle {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin: 1rem 0;
   }
   .theme-toggle__desktop {
     display: none;
@@ -96,8 +99,8 @@ const translatePath = useTranslatedPath(lang);
       gap: 0.75rem;
     }
     .theme-toggle {
-      margin-left: 0.75rem;
-      margin-right: 0.75rem;
+      height: 24px;
+      margin: 0 0.75rem 0.3em;
     }
     .theme-toggle__desktop {
       display: block;
