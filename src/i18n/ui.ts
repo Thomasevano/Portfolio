@@ -40,3 +40,9 @@ export const ui = {
     'title.skills': 'Compétences'
   },
 } as const;
+
+export const routes = {
+  en: {
+    'comment-construire-une-image-docker-avec-des-variables-denvironnement-dans-une-github-action': 'how-to-build-docker-image-with-environment-variables-in-a-github-action'
+  },
+}

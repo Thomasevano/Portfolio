@@ -27,6 +27,7 @@ const { Content, remarkPluginFrontmatter } = await post.render();
   lang={defaultLang}
   minutesRead={remarkPluginFrontmatter.minutesRead}
   slug={slug}
+  originalSlug={post.slug}
 >
   <Content />
 </MarkdownPostLayout>

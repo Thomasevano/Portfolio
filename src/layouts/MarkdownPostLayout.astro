@@ -1,10 +1,10 @@
 ---
-import { useTranslations, handleDate } from "../i18n/utils";
+import { useTranslations, handleDate, useTranslatedPath } from "../i18n/utils";
 import BaseLayout from "./BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { languages } from "../i18n/ui";
 
-const { frontmatter, lang, minutesRead, slug } = Astro.props;
+const { frontmatter, lang, minutesRead, slug, originalSlug } = Astro.props;
 
 const otherLang = Object.keys(languages).filter((l) => l !== lang);
 
@@ -14,11 +14,11 @@ const isPostAvailableInOtherLang = posts.some((post) => {
   return (
     post.data.draft !== true &&
     post.id.includes(`${otherLang[0]}/`) &&
-    post.slug.includes(slug)
+    post.id.includes(originalSlug.split("/")[1])
   );
 });
-
-const postOtherLangLink = otherLang[0] === "en" ? `/${otherLang[0]}/posts/${slug}` : `/posts/${slug}`;
+const translatePath = useTranslatedPath("en");
+const postOtherLangLink = otherLang[0] === "en" ? `/${otherLang[0]}/posts/${translatePath(`${slug ? slug : ""}`, "en").split("/")[2]}` : `/posts/${originalSlug.split("/")[1]}`;
 
 const t = useTranslations(lang);
 ---

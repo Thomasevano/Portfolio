@@ -1,8 +1,17 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from "../../i18n/utils";
 import { getCollection } from "astro:content";
 import BlogPost from "../../components/BlogPost.astro";
+
+const pageTitle = "Blog";
+const pageLang = getLangFromUrl(Astro.url);
+const t = useTranslations(pageLang);
+const translatePath = useTranslatedPath(pageLang);
 
 const blogPosts = await getCollection("posts", (post) => {
   return post.data.draft !== true && post.id.includes("en/");
@@ -10,15 +19,17 @@ const blogPosts = await getCollection("posts", (post) => {
 
 const posts = blogPosts.map((post) => {
   const [postLang, ...slug] = post.slug.split("/");
+
+  let translatedSlug = translatePath(`${slug ? slug : ""}`, pageLang);
+  post.slug = translatedSlug.split("/").splice(1).join("/");
   return {
-    params: { lang: postLang, slug: slug.join("/") || undefined },
+    params: { lang: postLang, slug: translatedSlug.split("/")[2] || undefined },
     props: post,
+    path: translatedSlug
+      ? `/${postLang}/posts/${translatedSlug.split("/")[2]}`
+      : undefined,
   };
 });
-
-const pageTitle = "Blog";
-const pageLang = getLangFromUrl(Astro.url);
-const t = useTranslations(pageLang);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -29,7 +40,7 @@ const t = useTranslations(pageLang);
         <ul class="posts__grid">
           {posts.map((post) => (
             <BlogPost
-              url={`/${post.params.lang}/posts/${post.params.slug}/`}
+              url={`/${post.params.lang}/posts/${post.params.slug}`}
               post={post}
             />
           ))}
