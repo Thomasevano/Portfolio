@@ -12,7 +12,7 @@ const { pageTitle, description } = Astro.props;
 
 <html lang={lang}>
   <MainHead title={pageTitle} description={description} />
-  <Navbar />
+  <Navbar transition:persist />
   <body class="light">
     <div id="top" class="app">
       <slot />

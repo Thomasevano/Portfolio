@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from "astro:transitions";
 import "../styles/reset.css";
 import "../styles/main.css";
 const { title, description } = Astro.props;
@@ -22,6 +23,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <title>{title}</title>
   <meta name="title" content={title} />
   <meta name="description" content={description} />
+
+  <ViewTransitions />
 
   <meta name="robots" content="/sitemap-index.xml" />
   <!-- Basic OG tags for sharing your website's content on platforms like Facebook and LinkedIn -->
