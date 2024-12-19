@@ -1,17 +1,17 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MarkdownPostLayout from "../../../layouts/MarkdownPostLayout.astro";
 import { getLangFromUrl } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
-  const blogPosts = await getCollection("posts", (post) => {
+  const blogPosts = await getCollection("blog", (post) => {
     return post.data.draft !== true && post.id.includes("en/");
   });
 
   return blogPosts.map((post) => {
-    const [lang, ...slug] = post.slug.split("/");
+    const [lang, ...id] = post.id.split("/");
     return {
-      params: { lang, slug: slug.join("/") || undefined },
+      params: { lang, id: id.join("/") || undefined },
       props: { post },
     };
   });
@@ -19,16 +19,16 @@ export async function getStaticPaths() {
 
 const pageLang = getLangFromUrl(Astro.url);
 const { post } = Astro.props;
-const { slug } = Astro.params;
+const { id } = Astro.params;
 
-const { Content, remarkPluginFrontmatter } = await post.render();
+const { Content, remarkPluginFrontmatter } = await render(post);
 ---
 
 <MarkdownPostLayout
   frontmatter={post.data}
   lang={pageLang}
   minutesRead={remarkPluginFrontmatter.minutesRead}
-  slug={slug}
+  slug={id}
 >
   <Content />
 </MarkdownPostLayout>

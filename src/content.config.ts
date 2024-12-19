@@ -1,6 +1,6 @@
-// Import utilities from `astro:content`
 import { defineCollection, z } from 'astro:content';
 import { rssSchema } from '@astrojs/rss';
+import { glob } from 'astro/loaders';
 
 const aboutMeSchema = z.object({
   name: z.string(),
@@ -8,20 +8,23 @@ const aboutMeSchema = z.object({
   linkedin: z.string().url(),
   github: z.string().url(),
   twitter: z.string().url(),
-  mail: z.string().email().optional(),
-  resumeLink: z.array(z.object({})),
+  bluesky: z.string().url(),
   skills: z.array(z.string())
 })
 
 const aboutMe = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/aboutMe.json', base: "./src/content/data" }),
   schema: aboutMeSchema
 })
 
+const postSchema = rssSchema.extend({
+  tags: z.array(z.string())
+})
+
 const blog = defineCollection({
-  type: 'content',
-  schema: rssSchema,
+  loader: glob({ pattern: '**/[^_]*.md', base: "./src/content/posts" }),
+  schema: postSchema,
 });
 
-export const collections = { blog, 'about': aboutMe };
+export const collections = { blog, aboutMe };
 export type aboutMeType = z.infer<typeof aboutMeSchema>

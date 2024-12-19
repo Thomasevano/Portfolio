@@ -8,13 +8,13 @@ const { frontmatter, lang, minutesRead, slug } = Astro.props;
 
 const otherLang = Object.keys(languages).filter((l) => l !== lang);
 
-const posts = await getCollection("posts")
+const posts = await getCollection("blog")
 
 const isPostAvailableInOtherLang = posts.some((post) => {
   return (
     post.data.draft !== true &&
     post.id.includes(`${otherLang[0]}/`) &&
-    post.slug.includes(slug)
+    post.id.includes(slug)
   );
 });
 

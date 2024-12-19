@@ -5,12 +5,12 @@ import { getCollection } from "astro:content";
 import BlogPost from "../components/BlogPost.astro";
 import { defaultLang } from "../i18n/ui";
 
-const blogPosts = await getCollection("posts", (post) => {
+const blogPosts = await getCollection("blog", (post) => {
   return post.data.draft !== true && post.id.includes("fr/");
 });
 
 const posts = blogPosts.map((post) => {
-  const [postLang, ...slug] = post.slug.split("/");
+  const [postLang, ...slug] = post.id.split("/");
   return {
     params: { lang: postLang, slug: slug.join("/") || undefined },
     props: post,
