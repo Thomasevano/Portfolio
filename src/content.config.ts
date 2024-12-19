@@ -1,6 +1,7 @@
 // Import utilities from `astro:content`
 import { defineCollection, z } from 'astro:content';
 import { rssSchema } from '@astrojs/rss';
+import { glob } from 'astro/loaders';
 
 const aboutMeSchema = z.object({
   name: z.string(),
@@ -14,12 +15,12 @@ const aboutMeSchema = z.object({
 })
 
 const aboutMe = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/[^_]*.json', base: "./src/constants/aboutMe" }),
   schema: aboutMeSchema
 })
 
 const blog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.md', base: "./src/content/posts" }),
   schema: rssSchema,
 });
 
