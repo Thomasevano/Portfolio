@@ -20,6 +20,7 @@ export const ui = {
     'nav.projects': 'Projects',
     'nav.skills': 'Skills',
     'post.link-to-other-lang': 'This post is also available in french 🇫🇷',
+    'tags.title': 'Posts with the tag #',
     'title.projects': 'Projects',
     'title.skills': 'Skills'
   },
@@ -36,6 +37,7 @@ export const ui = {
     'nav.projects': 'Projets',
     'nav.skills': 'Compétences',
     'post.link-to-other-lang': 'Cet article est aussi disponible en anglais 🇬🇧',
+    'tags.title': 'Posts comportant le tag #',
     'title.projects': 'Projets',
     'title.skills': 'Compétences'
   },

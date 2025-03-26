@@ -19,16 +19,28 @@ const posts = blogPosts.map((post) => {
 
 const pageTitle = "Blog";
 const t = useTranslations(defaultLang);
+const tags = [
+  ...new Set(blogPosts.map((post) => post.data.tags).flat()),
+].sort();
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <section class="posts">
     <h1 class="posts__title">{t("blog.title")}</h1>
+    <ul class="post__tags">
+      {
+        tags.map((tag) => (
+          <li class="post__tags-item">
+            <a href={`/tags/${tag}`}>#{tag}</a>
+          </li>
+        ))
+      }
+    </ul>
     {
       posts.length > 0 ? (
         <ul class="posts__grid">
           {posts.map((post) => (
-            <BlogPost url={`/posts/${post.params.slug}/`} post={post} />
+            <BlogPost url={`/posts/${post.params.slug}/`} post={post.props} />
           ))}
         </ul>
       ) : (
@@ -39,24 +51,35 @@ const t = useTranslations(defaultLang);
 </BaseLayout>
 
 <style>
-  .posts {
+  .post__tags {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .posts__title {
-    margin-bottom: 2rem;
-  }
-  .posts__grid {
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-gap: 2em;
+    flex-wrap: wrap;
+    margin: 0 0 1.2em;
   }
 
-  @media only screen and (min-width: 768px) {
-    .posts__grid {
-      grid-template-columns: repeat(2, 1fr);
+  .post__tags-item {
+    margin: 0.5em;
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--clr-primary);
+    background-color: var(--clr-bg);
+    border: 1px solid var(--clr-primary);
+    padding: 0.2em 0.5em;
+    border-radius: 4em;
+    text-decoration: none;
+    transition: background-color 0.2s linear;
+
+    &:hover {
+      background-color: var(--clr-primary);
+      color: var(--clr-bg);
+      border-color: var(--clr-bg);
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
     }
   }
 </style>

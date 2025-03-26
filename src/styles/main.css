@@ -179,6 +179,27 @@ body {
 
 }
 
+.posts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.posts__title {
+  margin-bottom: 2rem;
+}
+.posts__grid {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 2em;
+}
+
+@media only screen and (min-width: 768px) {
+  .posts__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (min-width: 1024px) {
   .app {
     padding: 0;

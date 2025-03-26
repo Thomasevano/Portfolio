@@ -2,12 +2,9 @@
 import { render } from "astro:content";
 import { getLangFromUrl, handleDate } from "../i18n/utils";
 const { url, post } = Astro.props;
-if (!post.props) {
-  return;
-}
-const { title, description, pubDate, tags } = post.props.data;
+const { title, description, pubDate, tags } = post.data;
 const pageLang = getLangFromUrl(Astro.url);
-const { remarkPluginFrontmatter } = await render(post.props);
+const { remarkPluginFrontmatter } = await render(post);
 ---
 
 <a class="post" href={url}>
@@ -22,7 +19,11 @@ const { remarkPluginFrontmatter } = await render(post.props);
   <h2 class="post__title">{title}</h2>
   <p class="post__description">{description}</p>
   <ul class="post__tags">
-    {tags ? tags.map((tag) => <li class="post__tags-item">#{tag}</li>) : ""}
+    {
+      tags
+        ? tags.map((tag: string) => <li class="post__tags-item">#{tag}</li>)
+        : ""
+    }
   </ul>
 </a>
 

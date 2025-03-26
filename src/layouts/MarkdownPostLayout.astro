@@ -41,7 +41,13 @@ const t = useTranslations(lang);
         {
           frontmatter.tags.map((tag: string) => (
             <li class="post--header__tags--item">
-              <a href={`/tags/${tag}`}>#{tag}</a>
+              {
+                lang !== "fr" ? (
+                  <a href={`/${lang}/tags/${tag}`}>#{tag}</a>
+                ) : (
+                  <a href={`/tags/${tag}`}>#{tag}</a>
+                )
+              }
             </li>
           ))
         }
