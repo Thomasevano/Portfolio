@@ -4,7 +4,6 @@ pubDate: 2024-11-26
 description: Afin de réduire le temps de build de l'image Docker de mon application lors du déploiement sur mon instance, j'ai eu l'idée de réaliser celui-ci via une github action. Voici ce que j'ai appris (ce n'était pas aussi simple que je le pensais.)
 author: Thomas Evano
 tags: ["docker", "github-action"]
-draft: false
 ---
 J'héberge mes projets sur une instance [Coolify](https://coolify.io). C'est génial, ça marche très bien, cela faisait un moment que je cherchais un PaaS qui me permettait d'héberger mes projets sur une instance que je possède. Le seul problème est qu'en utilisant la [version Cloud](https://coolify.io/cloud) (instance Coolify gérée par ces derniers), j'ai remarqué un temps de build d'application plutôt long, d'autant plus lorsqu'il s'agit d'une image Docker.
 Afin de réduire ce temps de build, je me suis alors tourné vers une solution que je savais plus rapide, les github actions.

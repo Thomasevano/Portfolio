@@ -5,7 +5,7 @@ import { getLangFromUrl } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection("blog", (post) => {
-    return post.data.draft !== true && post.id.includes("en/");
+    return post.id.includes("en/");
   });
 
   return blogPosts.map((post) => {

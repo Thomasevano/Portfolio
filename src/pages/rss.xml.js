@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 
 export async function GET(context) {
   const posts = await getCollection("posts", (post) => {
-    return post.data.draft !== true && post.id.includes("fr/");
+    return post.id.includes("fr/");
   });
   return rss({
     title: 'Thomas Evano | Blog',

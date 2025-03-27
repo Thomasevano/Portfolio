@@ -6,7 +6,7 @@ import BlogPost from "../components/BlogPost.astro";
 import { defaultLang } from "../i18n/ui";
 
 const blogPosts = await getCollection("blog", (post) => {
-  return post.data.draft !== true && post.id.includes("fr/");
+  return post.id.includes("fr/");
 });
 
 const posts = blogPosts.map((post) => {

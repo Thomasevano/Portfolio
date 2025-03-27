@@ -6,7 +6,7 @@ import { useTranslations } from "../../i18n/utils";
 
 export async function getStaticPaths() {
   const allBlogPosts = await getCollection("blog", (post) => {
-    return post.data.draft !== true && post.id.includes("fr/");
+    return post.id.includes("fr/");
   });
 
   const uniqueTags = [

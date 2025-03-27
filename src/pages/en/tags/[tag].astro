@@ -2,12 +2,11 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import BlogPost from "../../../components/BlogPost.astro";
-import { defaultLang } from "../../../i18n/ui";
 import { useTranslations } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
   const allBlogPosts = await getCollection("blog", (post) => {
-    return post.data.draft !== true && post.id.includes("en/");
+    return post.id.includes("en/");
   });
 
   const uniqueTags = [

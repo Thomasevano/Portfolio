@@ -31,7 +31,6 @@ collections:
       - { label: "Description", name: "description", widget: "string", i18n: true }
       - { label: "Author", name: "author", widget: "string", i18n: duplicate, default: "Thomas Evano" }
       - { label: "Tags", name: "tags", widget: "list", allow_add: true, i18n: true }
-      - { label: "Draft", name: "draft", widget: "boolean", i18n: duplicate }
       - { label: "Body", name: "body", widget: "markdown", i18n: true }
   
   - name: "pages"

@@ -12,7 +12,6 @@ const posts = await getCollection("blog")
 
 const isPostAvailableInOtherLang = posts.some((post) => {
   return (
-    post.data.draft !== true &&
     post.id.includes(`${otherLang[0]}/`) &&
     post.id.includes(slug)
   );
