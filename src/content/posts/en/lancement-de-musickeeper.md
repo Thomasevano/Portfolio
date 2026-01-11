@@ -1,6 +1,6 @@
 ---
 title: Announcing MusicKeeper, an app to manage your music library outside Spotify
-date: 2025-03-27
+pubDate: 2025-03-27
 description: It's time to finally launch my first app. About music,fully
   open-source and free (for now).
 author: Thomas Evano
@@ -10,16 +10,17 @@ tags:
   - release
   - buildinpublic
 ---
+
 I'm thrilled to finally announce my first app [MusicKeeper](https://musickeeper.app), a music manager app that help you manage, extract, transfer your music between different music provider and have the ambition to help you legally and easily buy the music you loves to finally own back your music locally.
 
 ## Why MusicKeeper ?
 
-* You want to switch from a music provider to another (for example: Spotify to Apple Music ).
-* You want to save your favorite music in the most compatible format it exist (simple text file, maybe more types would be available later).
-* You are subscribed to many music provider and it's tedious to keep them synchronized.
-* You want to support your favorites artists by buying their music in one click, and own the file legally and digitally
-* You share your playlists to peoples, but it's tedious to create it on every service.
-* You want to take back control on your music, own the files and why not exit from music providers.
+- You want to switch from a music provider to another (for example: Spotify to Apple Music ).
+- You want to save your favorite music in the most compatible format it exist (simple text file, maybe more types would be available later).
+- You are subscribed to many music provider and it's tedious to keep them synchronized.
+- You want to support your favorites artists by buying their music in one click, and own the file legally and digitally
+- You share your playlists to peoples, but it's tedious to create it on every service.
+- You want to take back control on your music, own the files and why not exit from music providers.
 
 ## Price
 

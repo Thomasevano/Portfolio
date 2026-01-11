@@ -2,7 +2,7 @@
 layout: blog
 title: Lancement de MusicKeeper, une app pour gérer votre librairie musicale en
   dehors de Spotify
-date: 2025-03-27
+pubDate: 2025-03-27
 description: Il est enfin temps de lancer ma première app. Autour de la musique
   complètement open source et gratuit (pour le moment).
 author: Thomas Evano
@@ -12,16 +12,17 @@ tags:
   - release
   - buildinpublic
 ---
+
 Je suis ravis d'enfin vous annoncer ma première application, [MusicKeeper](https://musickeeper.app) permettant de gérer votre librairie musicale en dehors des services de streaming. Ces derniers sont formidables d'un point de vue utilisateur, mais qu'en est-il du jour où l'on veut changer de service, qu'un de nos artistes préféré retire sa musique de cette plateforme, du modèle de rémunération qui privilégie les plus gros artistes stars meme si vous ne les écoutez pas, voir même du jour où le service disparaît complètement ?
 
 ## Pourquoi MusicKeeper ?
 
-* Vous voulez changer de service de streaming en passant de Spotify à Apple Music, par exemple.
-* Vous avez envie d'avoir une sauvegarde écrite de sa librairie musicale, via un export de ses playlists, albums, titres likés en format textuel. (On peut imaginer du .json dans le futur par exemple)
-* Vous êtes abonné à plusieurs services de streaming et vous voulez les garder synchronisés.
-* Vous souhaitez soutenir vos artistes favoris en achetant leur musique en un clic, vous permettant de posséder le fichier légalement et numériquement.
-* Vous partagez vos playlists à des personnes, mais c'est fastidieux de devoir la refaire sur chaque service qui existe.
-* Vous voulez quitter les services de musique en streaming définitivement tout en gardant votre librairie musicale.
+- Vous voulez changer de service de streaming en passant de Spotify à Apple Music, par exemple.
+- Vous avez envie d'avoir une sauvegarde écrite de sa librairie musicale, via un export de ses playlists, albums, titres likés en format textuel. (On peut imaginer du .json dans le futur par exemple)
+- Vous êtes abonné à plusieurs services de streaming et vous voulez les garder synchronisés.
+- Vous souhaitez soutenir vos artistes favoris en achetant leur musique en un clic, vous permettant de posséder le fichier légalement et numériquement.
+- Vous partagez vos playlists à des personnes, mais c'est fastidieux de devoir la refaire sur chaque service qui existe.
+- Vous voulez quitter les services de musique en streaming définitivement tout en gardant votre librairie musicale.
 
 ## Le Prix
 
@@ -46,6 +47,6 @@ Vous pouvez retrouver l'avancement ainsi que toutes les idées de futures améli
 
 ## L'ambition long-terme
 
-Devenir un véritable hub pour la gestion de librairie musicale. Imaginez-vous en tant que créateur de contenu, curateur, ou une entreprise qui créer/gère des playlists sur plusieurs plateformes, pouvoir avoir toute celles-ci connectez au même endroit. Ou juste en simple passionné de musique, pouvoir acheter légalement, numériquement vos œuvres préférées, chercher la dans MusicKeeper il vous dira où vous pouvez l'acheter. Imaginez pouvoir créer des playlists en fonction d'un genre,  d'un artiste, d'une période d'années ou bien même tout ça en même temps.
+Devenir un véritable hub pour la gestion de librairie musicale. Imaginez-vous en tant que créateur de contenu, curateur, ou une entreprise qui créer/gère des playlists sur plusieurs plateformes, pouvoir avoir toute celles-ci connectez au même endroit. Ou juste en simple passionné de musique, pouvoir acheter légalement, numériquement vos œuvres préférées, chercher la dans MusicKeeper il vous dira où vous pouvez l'acheter. Imaginez pouvoir créer des playlists en fonction d'un genre, d'un artiste, d'une période d'années ou bien même tout ça en même temps.
 
 Merci de m'avoir lu jusque-là, n'hésitez surtout pas à aller jeter un œil à [MusicKeeper](https://musickeeper.app). Ainsi que me faire des retours sur d'éventuels bugs rencontrez. Je considère le projet encore en alpha donc c'est possible qu'il y en ait dont je n'ai pas encore connaissance.

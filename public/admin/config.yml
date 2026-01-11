@@ -17,7 +17,6 @@ i18n:
   # The locale to be used for fields validation and as a baseline for the entry.
   # default_locale: fr
 
-
 collections:
   - name: "blog_posts" # Used in routes, e.g., /admin/collections/blog
     label: "Blog Posts" # Used in the UI
@@ -26,27 +25,51 @@ collections:
     create: true # Allow users to create new documents in this collection
     fields: # The fields for each document, usually in frontmatter
       - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
-      - { label: "Title", name: "title", widget: "string", i18n: true}
-      - { label: "Publish Date", name: "date", widget: "datetime", default: "{{now}}", date_format: "YYYY-MM-DD", i18n: duplicate }
-      - { label: "Description", name: "description", widget: "string", i18n: true }
-      - { label: "Author", name: "author", widget: "string", i18n: duplicate, default: "Thomas Evano" }
-      - { label: "Tags", name: "tags", widget: "list", allow_add: true, i18n: true }
+      - { label: "Title", name: "title", widget: "string", i18n: true }
+      - {
+          label: "Publish Date",
+          name: "pubDate",
+          widget: "datetime",
+          default: "{{now}}",
+          date_format: "YYYY-MM-DD",
+          i18n: duplicate,
+        }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "string",
+          i18n: true,
+        }
+      - {
+          label: "Author",
+          name: "author",
+          widget: "string",
+          i18n: duplicate,
+          default: "Thomas Evano",
+        }
+      - {
+          label: "Tags",
+          name: "tags",
+          widget: "list",
+          allow_add: true,
+          i18n: true,
+        }
       - { label: "Body", name: "body", widget: "markdown", i18n: true }
-  
+
   - name: "pages"
     label: "Pages"
     i18n: false
-    files: 
-    - name: "about"
-      label: "About"
-      file: "src/content/data/aboutMe.json"
-      fields:
-        - { label: "Name", name: "name", widget: "string" }
-        - { label: "Role", name: "role", widget: "string" }
-        - { label: "Linkedin", name: "linkedin", widget: "string" }
-        - { label: "Github", name: "github", widget: "string" }
-        - { label: "Twitter", name: "twitter", widget: "string" }
-        - { label: "Bluesky", name: "bluesky", widget: "string" }
-        - { label: "Skills", name: "skills", widget: "list", allow_add: true }
+    files:
+      - name: "about"
+        label: "About"
+        file: "src/content/data/aboutMe.json"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Role", name: "role", widget: "string" }
+          - { label: "Linkedin", name: "linkedin", widget: "string" }
+          - { label: "Github", name: "github", widget: "string" }
+          - { label: "Twitter", name: "twitter", widget: "string" }
+          - { label: "Bluesky", name: "bluesky", widget: "string" }
+          - { label: "Skills", name: "skills", widget: "list", allow_add: true }
 media_folder: "src/assets/images" # Location where files will be stored in the repo
 public_folder: "src/assets/images" # The src attribute for uploaded media
