@@ -13,11 +13,11 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.14",
     "@fontsource/poppins": "^5.2.7",
+    "@lucide/astro": "^0.562.0",
     "animejs": "^3.2.2",
     "astro": "^5.16.8",
     "astro-navbar": "^2.4.0",
     "decap-cms-app": "^3.10.0",
-    "lucide-astro": "^0.461.0",
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0",
     "sharp": "^0.33.5"

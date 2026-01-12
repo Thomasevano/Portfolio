@@ -14,6 +14,9 @@ importers:
       '@fontsource/poppins':
         specifier: ^5.2.7
         version: 5.2.7
+      '@lucide/astro':
+        specifier: ^0.562.0
+        version: 0.562.0(astro@5.16.8(@types/node@25.0.5)(jiti@2.4.2)(rollup@4.55.1)(typescript@5.6.2))
       animejs:
         specifier: ^3.2.2
         version: 3.2.2
@@ -26,9 +29,6 @@ importers:
       decap-cms-app:
         specifier: ^3.10.0
         version: 3.10.0(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.8))(@types/node@25.0.5)(@types/react@19.2.8)(graphql@15.10.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      lucide-astro:
-        specifier: ^0.461.0
-        version: 0.461.0(astro@5.16.8(@types/node@25.0.5)(jiti@2.4.2)(rollup@4.55.1)(typescript@5.6.2))
       mdast-util-to-string:
         specifier: ^4.0.0
         version: 4.0.0
@@ -628,6 +628,11 @@ packages:
 
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
+
+  '@lucide/astro@0.562.0':
+    resolution: {integrity: sha512-Rdtykh/VmH3M7n4ckBWY2X7wTMyJX/At5MuJDZ+5M+QZNebxAa75TU7xmM0OVmQj60UsHvdmqRIRNTqEYIieKg==}
+    peerDependencies:
+      astro: ^4 || ^5
 
   '@mapbox/jsonlint-lines-primitives@2.0.2':
     resolution: {integrity: sha512-rY0o9A5ECsTQRVhv7tL/OyDpGAoUB4tTvLiW1DSzQGq4bvTPhNw1VpSNjDJc5GFZ2XuyOtSWSVN05qOtcD71qQ==}
@@ -2100,12 +2105,6 @@ packages:
   lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
-
-  lucide-astro@0.461.0:
-    resolution: {integrity: sha512-AY24QN+jQ+JqDeKbkRYEq9RF8SFYTsuWBDSo0DjBvP8MstVsc8ReA9qvbpDMnsz6nE4aA9vfTn/EGKVLbt+Vtw==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-    peerDependencies:
-      astro: '>=2.7.1'
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
@@ -4057,6 +4056,10 @@ snapshots:
 
   '@juggle/resize-observer@3.4.0': {}
 
+  '@lucide/astro@0.562.0(astro@5.16.8(@types/node@25.0.5)(jiti@2.4.2)(rollup@4.55.1)(typescript@5.6.2))':
+    dependencies:
+      astro: 5.16.8(@types/node@25.0.5)(jiti@2.4.2)(rollup@4.55.1)(typescript@5.6.2)
+
   '@mapbox/jsonlint-lines-primitives@2.0.2': {}
 
   '@mapbox/mapbox-gl-style-spec@13.28.0':
@@ -5808,10 +5811,6 @@ snapshots:
   lru-cache@6.0.0:
     dependencies:
       yallist: 4.0.0
-
-  lucide-astro@0.461.0(astro@5.16.8(@types/node@25.0.5)(jiti@2.4.2)(rollup@4.55.1)(typescript@5.6.2)):
-    dependencies:
-      astro: 5.16.8(@types/node@25.0.5)(jiti@2.4.2)(rollup@4.55.1)(typescript@5.6.2)
 
   magic-string@0.30.21:
     dependencies:
