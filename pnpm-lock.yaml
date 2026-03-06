@@ -18,8 +18,8 @@ importers:
         specifier: ^0.577.0
         version: 0.577.0(astro@5.18.0(@types/node@25.3.3)(jiti@2.4.2)(rollup@4.59.0)(typescript@5.6.2))
       animejs:
-        specifier: ^3.2.2
-        version: 3.2.2
+        specifier: ^4.3.6
+        version: 4.3.6
       astro:
         specifier: ^5.18.0
         version: 5.18.0(@types/node@25.3.3)(jiti@2.4.2)(rollup@4.59.0)(typescript@5.6.2)
@@ -1117,8 +1117,8 @@ packages:
   ajv@8.18.0:
     resolution: {integrity: sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==}
 
-  animejs@3.2.2:
-    resolution: {integrity: sha512-Ao95qWLpDPXXM+WrmwcKbl6uNlC5tjnowlaRYtuVDHHoygjtIPfDUoK9NthrlZsQSKjZXlmji2TrBUAVbiH0LQ==}
+  animejs@4.3.6:
+    resolution: {integrity: sha512-rzZ4bDc8JAtyx6hYwxj7s5M/yWfnM5qqY4hZDnhy1cWFvMb6H5/necHS2sbCY3WQTDbRLuZL10dPXSxSCFOr/w==}
 
   ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
@@ -4594,7 +4594,7 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
-  animejs@3.2.2: {}
+  animejs@4.3.6: {}
 
   ansi-align@3.0.1:
     dependencies:

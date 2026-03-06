@@ -14,7 +14,7 @@
     "@astrojs/rss": "^4.0.15",
     "@fontsource/poppins": "^5.2.7",
     "@lucide/astro": "^0.577.0",
-    "animejs": "^3.2.2",
+    "animejs": "^4.3.6",
     "astro": "^5.18.0",
     "astro-navbar": "^2.4.0",
     "decap-cms-app": "^3.10.1",
