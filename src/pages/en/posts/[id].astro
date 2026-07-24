@@ -4,7 +4,7 @@ import MarkdownPostLayout from "../../../layouts/MarkdownPostLayout.astro";
 import { getLangFromUrl } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
-  const blogPosts = await getCollection("blog", (post) => {
+  const blogPosts = await getCollection("blogPosts", (post) => {
     return post.id.includes("en/");
   });
 

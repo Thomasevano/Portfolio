@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 import BlogPost from "../components/BlogPost.astro";
 import { defaultLang } from "../i18n/ui";
 
-const blogPosts = await getCollection("blog", (post) => {
+const blogPosts = await getCollection("blogPosts", (post) => {
   return post.id.includes("fr/");
 });
 

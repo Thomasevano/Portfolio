@@ -1,15 +1,15 @@
-import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
+import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
 
 export async function GET(context) {
-  const posts = await getCollection("posts", (post) => {
+  const blogPosts = await getCollection("blogPosts", (post) => {
     return post.id.includes("en/");
   });
   return rss({
-    title: 'Thomas Evano | Blog | EN',
-    description: 'Just a french software engineer adventures',
+    title: "Thomas Evano | Blog | EN",
+    description: "Just a french software engineer adventures",
     site: context.site,
-    items: posts.map((post) => ({
+    items: blogPosts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
@@ -18,3 +18,4 @@ export async function GET(context) {
     customData: `<language>en-us</language>`,
   });
 }
+

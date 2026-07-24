@@ -21,10 +21,10 @@ const postSchema = rssSchema.extend({
   tags: z.array(z.string())
 })
 
-const blog = defineCollection({
+const blogPosts = defineCollection({
   loader: glob({ pattern: '**/[^_]*.md', base: "./src/content/posts" }),
   schema: postSchema,
 });
 
-export const collections = { blog, aboutMe };
+export const collections = { blogPosts, aboutMe };
 export type aboutMeType = z.infer<typeof aboutMeSchema>
