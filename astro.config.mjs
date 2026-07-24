@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import { remarkReadingTime } from './remark-reading-time.mjs';
+import { unified } from '@astrojs/markdown-remark';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,7 +12,7 @@ export default defineConfig({
     },
   },
   markdown: {
-    remarkPlugins: [remarkReadingTime],
+    processor: unified({ remarkPlugins: [remarkReadingTime] }),
   },
   site: 'https://thomasevano.fr'
 });
