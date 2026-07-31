@@ -7,9 +7,18 @@
 </div>
 
 <script>
-  const [div] = document.getElementsByClassName('scroll-top')
-  const toggleVisibility = () => div.classList.toggle('is-visible', window.pageYOffset > 500)
-  window.addEventListener('scroll', toggleVisibility)
+  // Rebound per page load: ClientRouter swaps in a fresh element, and a
+  // listener closing over the old one would silently stop updating it.
+  document.addEventListener("astro:page-load", () => {
+    const div = document.querySelector(".scroll-top");
+    if (!div) return;
+    const toggleVisibility = () =>
+      div.classList.toggle("is-visible", window.scrollY > 500);
+    toggleVisibility();
+    window.addEventListener("scroll", toggleVisibility);
+    document.addEventListener("astro:before-swap", () =>
+      window.removeEventListener("scroll", toggleVisibility), { once: true });
+  });
 </script>
 
 <style>

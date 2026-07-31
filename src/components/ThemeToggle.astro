@@ -30,16 +30,31 @@
 
 <script>
   const themeName = "thomas-portfolio";
-  const body = document.body;
-  const themeSwitch = document.getElementById("theme-switch");
-  if (!themeSwitch) throw new Error("theme-switch element not found");
 
-  const stored = window.localStorage.getItem(themeName);
-  if (stored) body.className = JSON.parse(stored).class;
+  const storedTheme = () => {
+    const raw = window.localStorage.getItem(themeName);
+    return raw ? JSON.parse(raw).class : "light";
+  };
 
-  themeSwitch.addEventListener("click", () => {
-    body.className = body.className === "dark" ? "light" : "dark";
-    window.localStorage.setItem(themeName, JSON.stringify({ class: body.className }));
+  // The swapped-in body carries the server-rendered class, so the stored theme
+  // is reapplied before the new page is painted.
+  document.addEventListener("astro:after-swap", () => {
+    document.body.className = storedTheme();
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    document.body.className = storedTheme();
+
+    const themeSwitch = document.getElementById("theme-switch");
+    if (!themeSwitch) throw new Error("theme-switch element not found");
+
+    themeSwitch.onclick = () => {
+      document.body.className = document.body.className === "dark" ? "light" : "dark";
+      window.localStorage.setItem(
+        themeName,
+        JSON.stringify({ class: document.body.className })
+      );
+    };
   });
 </script>
 
