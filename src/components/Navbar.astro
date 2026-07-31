@@ -1,11 +1,10 @@
 ---
-import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 import ThemeToggle from "./ThemeToggle.astro";
 import { Image } from "astro:assets";
 import heyMemoji from "../assets/hey.webp";
 
 import { getLangFromUrl, localizePath, useTranslations } from "../i18n/utils";
-import { Rss } from "@lucide/astro";
+import { Menu, Rss } from "@lucide/astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -13,50 +12,72 @@ const path = (to: string) => localizePath(to, lang);
 ---
 
 <header class="header">
-  <Astronav closeOnClick>
-    <div class="icons">
-      <Image
-        src={heyMemoji}
-        style="height: 3rem;width: 3rem;margin-top: -1.25rem;"
-        alt="hey waving memoji"
-      />
-      <MenuIcon class="menu-icon" />
+  <div class="icons">
+    <Image
+      src={heyMemoji}
+      style="height: 3rem;width: 3rem;margin-top: -1.25rem;"
+      alt="hey waving memoji"
+    />
+    <button
+      class="menu-icon"
+      id="menu-toggle"
+      type="button"
+      aria-controls="menu-items"
+      aria-expanded="false"
+      aria-label="menu"
+    >
+      <Menu />
+    </button>
+  </div>
+  <div class="menu-items" id="menu-items">
+    <ul class="menu-items__list">
+      <li>
+        <a href={path("/")} class="link link--nav">{t("nav.home")}</a>
+      </li>
+      <li>
+        <a href={path("/blog")} class="link link--nav">{t("nav.blog")}</a>
+      </li>
+      <li>
+        <a href={path("/#about")} class="link link--nav">{t("nav.about")}</a>
+      </li>
+      <li>
+        <a href={path("/#projects")} class="link link--nav">{t("nav.projects")}</a>
+      </li>
+      <li>
+        <a href={path("/#skills")} class="link link--nav">{t("nav.skills")}</a>
+      </li>
+    </ul>
+    <a
+      href={path("/rss.xml")}
+      class="rss-link link link--nav"
+      aria-label={t("footer.subscribe-rss")}><Rss /></a
+    >
+    <div class="theme-toggle">
+      <ThemeToggle />
     </div>
-    <MenuItems class="hidden menu-items">
-      <ul class="menu-items__list">
-        <li>
-          <a href={path("/")} class="link link--nav">{t("nav.home")}</a>
-        </li>
-        <li>
-          <a href={path("/blog")} class="link link--nav"
-            >{t("nav.blog")}</a
-          >
-        </li>
-        <li>
-          <a href={path("/#about")} class="link link--nav"
-            >{t("nav.about")}</a
-          >
-        </li>
-        <li>
-          <a href={path("/#projects")} class="link link--nav"
-            >{t("nav.projects")}</a
-          >
-        </li>
-        <li>
-          <a href={path("/#skills")} class="link link--nav"
-            >{t("nav.skills")}</a
-          >
-        </li>
-      </ul>
-      <a href={path("/rss.xml")} class="rss-link link link--nav" aria-label={t("footer.subscribe-rss")}
-        ><Rss /></a
-      >
-      <div class="theme-toggle">
-        <ThemeToggle />
-      </div>
-    </MenuItems>
-  </Astronav>
+  </div>
 </header>
+
+<script>
+  // ClientRouter swaps the whole body on navigation, so the handlers are
+  // reattached on every page load rather than bound once at module scope.
+  document.addEventListener("astro:page-load", () => {
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("menu-items");
+    if (!toggle || !menu) throw new Error("navbar menu elements not found");
+
+    const setOpen = (open: boolean) => {
+      menu.toggleAttribute("data-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    };
+
+    toggle.onclick = () => setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    // The mobile menu covers the page, so following a link has to close it.
+    menu.onclick = (event) => {
+      if ((event.target as HTMLElement).closest("a")) setOpen(false);
+    };
+  });
+</script>
 
 <style>
   .header {
@@ -68,6 +89,14 @@ const path = (to: string) => localizePath(to, lang);
   .icons {
     display: flex;
     justify-content: space-between;
+  }
+
+  .menu-icon {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    cursor: pointer;
   }
 
   .menu-items__list {

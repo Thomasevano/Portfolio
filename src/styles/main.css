@@ -102,18 +102,23 @@ body {
 
 .menu-icon {
   display: block;
-  width: 1rem;
-  height: 1rem;
-}
-
-.hidden {
-  display: none;
 }
 
 .menu-items {
   width: 100%;
   margin-top: 0.5rem;
+}
 
+/* Collapsed behind the hamburger below the desktop breakpoint. Toggled with an
+   attribute rather than [hidden], which would also hide it from assistive tech
+   on desktop, where the menu is always on screen. */
+@media (max-width: 1023.98px) {
+  .menu-items {
+    display: none;
+  }
+  .menu-items[data-open] {
+    display: block;
+  }
 }
 
 .posts {
