@@ -1,5 +1,5 @@
 ---
-import { useTranslations } from "../i18n/utils";
+import { localizePath, useTranslations } from "../i18n/utils";
 import LanguagePicker from "./LanguagePicker.astro";
 import { Rss } from "@lucide/astro";
 
@@ -11,7 +11,7 @@ const t = useTranslations(lang);
 
 <footer>
   <LanguagePicker />
-  <a href="rss.xml" class="link footer__link rss-link">
+  <a href={localizePath("/rss.xml", lang)} class="link footer__link rss-link">
     {t("footer.subscribe-rss")}
     <Rss title="RSS Feed icon" />
   </a>
@@ -25,14 +25,6 @@ const t = useTranslations(lang);
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .byline {
-    display: block;
-    margin-top: 1rem;
-    color: var(--t-subdue);
-    font-size: var(--f-d2);
-    text-transform: uppercase;
   }
 
   .footer__link {

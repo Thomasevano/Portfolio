@@ -1,23 +1,15 @@
 ---
-import { useTranslations, handleDate } from "../i18n/utils";
+import { localizePath, useTranslations, type Lang } from "../i18n/utils";
 import BaseLayout from "./BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { languages } from "../i18n/ui";
+import { ui } from "../i18n/ui";
 
 const { frontmatter, lang, minutesRead, slug } = Astro.props;
 
-const otherLang = Object.keys(languages).filter((l) => l !== lang);
-
-const posts = await getCollection("blogPosts")
-
-const isPostAvailableInOtherLang = posts.some((post) => {
-  return (
-    post.id.includes(`${otherLang[0]}/`) &&
-    post.id.includes(slug)
-  );
-});
-
-const postOtherLangLink = otherLang[0] === "en" ? `/${otherLang[0]}/posts/${slug}` : `/posts/${slug}`;
+const posts = await getCollection("blogPosts");
+const translations = (Object.keys(ui) as Lang[]).filter(
+  (l) => l !== lang && posts.some((post) => post.id === `${l}/${slug}`)
+);
 
 const t = useTranslations(lang);
 ---
@@ -29,37 +21,29 @@ const t = useTranslations(lang);
       <div class="post--header__meta">
         <p class="post--header__date">
           {t("blog.date")}
-          {handleDate(frontmatter.pubDate, lang)}
+          {frontmatter.pubDate.toLocaleDateString(lang, { dateStyle: "long" })}
         </p>
         <p class="post--header__minutes-read">
           {minutesRead}
         </p>
       </div>
       <p><em>{frontmatter.description}</em></p>
-      <ul class="post--header__tags">
+      <ul class="post__tags">
         {
           frontmatter.tags.map((tag: string) => (
-            <li class="post--header__tags--item">
-              {
-                lang !== "fr" ? (
-                  <a href={`/${lang}/tags/${tag}`}>#{tag}</a>
-                ) : (
-                  <a href={`/tags/${tag}`}>#{tag}</a>
-                )
-              }
+            <li class="post__tags-item">
+              <a href={localizePath(`/tags/${tag}`, lang)}>#{tag}</a>
             </li>
           ))
         }
       </ul>
     </div>
     {
-      isPostAvailableInOtherLang ? (
-          <a href=`${postOtherLangLink}` class="link other-lang-link">
-            {t("post.link-to-other-lang")}
-          </a>
-      ) : (
-        ""
-      )
+      translations.map((other) => (
+        <a href={localizePath(`/posts/${slug}`, other)} class="link other-lang-link">
+          {t("post.link-to-other-lang")}
+        </a>
+      ))
     }
     <div class="post--content">
       <slot />
@@ -85,36 +69,6 @@ const t = useTranslations(lang);
     display: flex;
     justify-content: space-between;
     margin-bottom: 1em;
-  }
-
-  .post--header__tags {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 1.2em 0 0;
-    gap: 0.5em;
-  }
-  .post--header__tags--item {
-    font-size: 0.8rem;
-    color: var(--clr-primary);
-    background-color: var(--clr-bg);
-    border: 1px solid var(--clr-primary);
-    padding: 0.2em 0.5em;
-    border-radius: 4em;
-    text-decoration: none;
-    transition: background-color 0.2s linear;
-
-    &:hover {
-      background-color: var(--clr-primary);
-      color: var(--clr-bg);
-      border-color: var(--clr-bg);
-    }
-
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
   }
 
   .post--content {

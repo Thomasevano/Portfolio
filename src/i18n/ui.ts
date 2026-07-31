@@ -4,7 +4,6 @@ export const languages = {
 };
 
 export const defaultLang = 'fr';
-export const showDefaultLang = false;
 
 export const ui = {
   en: {
@@ -20,6 +19,8 @@ export const ui = {
     'nav.projects': 'Projects',
     'nav.skills': 'Skills',
     'post.link-to-other-lang': 'This post is also available in french 🇫🇷',
+    'rss.description': 'Just a french software engineer adventures',
+    'rss.title': 'Thomas Evano | Blog | EN',
     'tags.title': 'Posts with the tag #',
     'title.projects': 'Projects',
     'title.skills': 'Skills'
@@ -37,6 +38,8 @@ export const ui = {
     'nav.projects': 'Projets',
     'nav.skills': 'Compétences',
     'post.link-to-other-lang': 'Cet article est aussi disponible en anglais 🇬🇧',
+    'rss.description': 'Les aventures d\'un développeur français',
+    'rss.title': 'Thomas Evano | Blog',
     'tags.title': 'Posts comportant le tag #',
     'title.projects': 'Projets',
     'title.skills': 'Compétences'

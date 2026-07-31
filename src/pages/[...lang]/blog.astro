@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+import { getCollection } from "astro:content";
+import { localeRoutes, localizePath, useTranslations } from "../../i18n/utils";
+
+export const getStaticPaths = localeRoutes;
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const posts = await getCollection("blogPosts", (post) =>
+  post.id.startsWith(`${lang}/`)
+);
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+---
+
+<BaseLayout pageTitle="Blog">
+  <section class="posts">
+    <h1 class="posts__title">{t("blog.title")}</h1>
+    <ul class="post__tags">
+      {
+        tags.map((tag) => (
+          <li class="post__tags-item">
+            <a href={localizePath(`/tags/${tag}`, lang)}>#{tag}</a>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      posts.length > 0 ? (
+        <ul class="posts__grid">
+          {posts.map((post) => (
+            <BlogPost
+              url={localizePath(`/posts/${post.id.slice(lang.length + 1)}/`, lang)}
+              post={post}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p>{t("blog.no-posts")}</p>
+      )
+    }
+  </section>
+</BaseLayout>

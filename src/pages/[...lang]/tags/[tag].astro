@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import BlogPost from "../../../components/BlogPost.astro";
+import { langParam, localizePath, useTranslations, type Lang } from "../../../i18n/utils";
+import { ui } from "../../../i18n/ui";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blogPosts");
+
+  return (Object.keys(ui) as Lang[]).flatMap((lang) => {
+    const langPosts = allPosts.filter((post) => post.id.startsWith(`${lang}/`));
+    const tags = [...new Set(langPosts.flatMap((post) => post.data.tags))];
+
+    return tags.map((tag) => ({
+      params: { lang: langParam(lang), tag },
+      props: {
+        lang,
+        posts: langPosts.filter((post) => post.data.tags.includes(tag)),
+      },
+    }));
+  });
+}
+
+const { tag } = Astro.params;
+const { lang, posts } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout pageTitle={tag}>
+  <section class="posts">
+    <h1 class="posts__title">{t("tags.title")}{tag}</h1>
+    <ul class="posts__grid">
+      {
+        posts.map((post) => (
+          <BlogPost
+            url={localizePath(`/posts/${post.id.slice(lang.length + 1)}/`, lang)}
+            post={post}
+          />
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

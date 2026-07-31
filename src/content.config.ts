@@ -28,4 +28,3 @@ const blogPosts = defineCollection({
 });
 
 export const collections = { blogPosts, aboutMe };
-export type aboutMeType = z.infer<typeof aboutMeSchema>

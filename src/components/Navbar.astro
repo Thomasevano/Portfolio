@@ -4,16 +4,12 @@ import ThemeToggle from "./ThemeToggle.astro";
 import { Image } from "astro:assets";
 import heyMemoji from "../assets/hey.webp";
 
-import {
-  getLangFromUrl,
-  useTranslations,
-  useTranslatedPath,
-} from "../i18n/utils";
+import { getLangFromUrl, localizePath, useTranslations } from "../i18n/utils";
 import { Rss } from "@lucide/astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+const path = (to: string) => localizePath(to, lang);
 ---
 
 <header class="header">
@@ -29,31 +25,30 @@ const translatePath = useTranslatedPath(lang);
     <MenuItems class="hidden menu-items">
       <ul class="menu-items__list">
         <li>
-          <a href={translatePath("/")} class="link link--nav">{t("nav.home")}</a
-          >
+          <a href={path("/")} class="link link--nav">{t("nav.home")}</a>
         </li>
         <li>
-          <a href={translatePath("/blog")} class="link link--nav"
+          <a href={path("/blog")} class="link link--nav"
             >{t("nav.blog")}</a
           >
         </li>
         <li>
-          <a href={translatePath("/#about")} class="link link--nav"
+          <a href={path("/#about")} class="link link--nav"
             >{t("nav.about")}</a
           >
         </li>
         <li>
-          <a href={translatePath("/#projects")} class="link link--nav"
+          <a href={path("/#projects")} class="link link--nav"
             >{t("nav.projects")}</a
           >
         </li>
         <li>
-          <a href={translatePath("/#skills")} class="link link--nav"
+          <a href={path("/#skills")} class="link link--nav"
             >{t("nav.skills")}</a
           >
         </li>
       </ul>
-      <a href="rss.xml" class="rss-link link link--nav" aria-label={t("footer.subscribe-rss")}
+      <a href={path("/rss.xml")} class="rss-link link link--nav" aria-label={t("footer.subscribe-rss")}
         ><Rss /></a
       >
       <div class="theme-toggle">
@@ -83,10 +78,6 @@ const translatePath = useTranslatedPath(lang);
   .theme-toggle {
     margin: 1rem 0;
   }
-  .theme-toggle__desktop {
-    display: none;
-  }
-
   @media (min-width: 1024px) {
     .header {
       flex-direction: row;
@@ -101,9 +92,6 @@ const translatePath = useTranslatedPath(lang);
     .theme-toggle {
       display: flex;
       align-items: center;
-    }
-    .theme-toggle__desktop {
-      display: block;
     }
   }
 </style>

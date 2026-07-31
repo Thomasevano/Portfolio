@@ -1,6 +1,6 @@
 ---
 import { render } from "astro:content";
-import { getLangFromUrl, handleDate } from "../i18n/utils";
+import { getLangFromUrl } from "../i18n/utils";
 const { url, post } = Astro.props;
 const { title, description, pubDate, tags } = post.data;
 const pageLang = getLangFromUrl(Astro.url);
@@ -10,7 +10,7 @@ const { remarkPluginFrontmatter } = await render(post);
 <a class="post" href={url}>
   <div class="post--header">
     <p class="post--header__date">
-      {handleDate(pubDate, pageLang)}
+      {pubDate.toLocaleDateString(pageLang, { dateStyle: "long" })}
     </p>
     <p class="post--header__minutes-read">
       {remarkPluginFrontmatter.minutesRead}
@@ -46,38 +46,6 @@ const { remarkPluginFrontmatter } = await render(post);
   }
   .post__title {
     margin: 0.5em 0;
-  }
-
-  .post__tags {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 1.2em 0 0;
-  }
-
-  .post__tags-item {
-    margin: 0.5em;
-    font-weight: 500;
-    font-size: 0.8rem;
-    color: var(--clr-primary);
-    background-color: var(--clr-bg);
-    border: 1px solid var(--clr-primary);
-    padding: 0.2em 0.5em;
-    border-radius: 4em;
-    text-decoration: none;
-    transition: background-color 0.2s linear;
-
-    &:hover {
-      background-color: var(--clr-primary);
-      color: var(--clr-bg);
-      border-color: var(--clr-bg);
-    }
-
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
   }
 
   @media only screen and (min-width: 768px) {
