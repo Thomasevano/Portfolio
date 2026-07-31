@@ -53,8 +53,8 @@ const translatePath = useTranslatedPath(lang);
           >
         </li>
       </ul>
-      <a href="rss.xml" class="rss-link link link--nav"
-        ><Rss alt=`${t("footer.subscribe-rss")}` /></a
+      <a href="rss.xml" class="rss-link link link--nav" aria-label={t("footer.subscribe-rss")}
+        ><Rss /></a
       >
       <div class="theme-toggle">
         <ThemeToggle />

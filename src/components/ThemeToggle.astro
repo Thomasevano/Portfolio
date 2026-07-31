@@ -15,9 +15,9 @@
 </button>
 
 <script>
-  const body = document.querySelector("body");
-
+  const body = document.body;
   const themeSwitch = document.getElementById("theme-switch");
+  if (!themeSwitch) throw new Error("theme-switch element not found");
   const themeName = "thomas-portfolio";
 
   const darkTheme = "dark";
@@ -38,7 +38,7 @@
   `;
 
   // Icon representing the action available in the given active theme.
-  const iconForTheme = (theme) => (theme === darkTheme ? sunIcon : moonIcon);
+  const iconForTheme = (theme: string) => (theme === darkTheme ? sunIcon : moonIcon);
 
   const themePreference = window.localStorage.getItem(themeName);
 
