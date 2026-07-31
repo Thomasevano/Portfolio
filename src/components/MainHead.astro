@@ -17,8 +17,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="generator" content={Astro.generator} />
-  <script defer is:inline data-domain="thomasevano.fr" src={import.meta.env.PLAUSIBLE_URL}
-  ></script>
+  {
+    import.meta.env.PLAUSIBLE_URL && (
+      <script
+        defer
+        is:inline
+        data-domain="thomasevano.fr"
+        src={import.meta.env.PLAUSIBLE_URL}
+      />
+    )
+  }
   <link rel="canonical" href={canonicalURL} />
   <title>{title}</title>
   <meta name="title" content={title} />
