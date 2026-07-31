@@ -1,6 +1,8 @@
 ---
-import { FileText, Github, Linkedin } from "@lucide/astro";
+import { FileText } from "@lucide/astro";
 import BlueSkyIcon from "./BlueskyIcon.astro";
+import GithubIcon from "./GithubIcon.astro";
+import LinkedinIcon from "./LinkedinIcon.astro";
 const { about } = Astro.props;
 ---
 
@@ -34,7 +36,7 @@ const { about } = Astro.props;
       class="link link--icon"
       target="_blank"
     >
-      <Github />
+      <GithubIcon />
     </a>
 
     <a
@@ -43,7 +45,7 @@ const { about } = Astro.props;
       class="link link--icon"
       target="_blank"
     >
-      <Linkedin />
+      <LinkedinIcon />
     </a>
 
     <a
