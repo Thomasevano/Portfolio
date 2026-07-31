@@ -7,13 +7,11 @@ import { getCollection } from "astro:content";
 import { defaultLang } from "../i18n/ui";
 import { useTranslations } from "../i18n/utils";
 import { getEntry } from "astro:content";
+import { getPinnedRepos } from "../lib/pinnedRepos";
 
 const aboutMeInfosData = await getCollection("aboutMe");
 
-const response = await fetch(
-  "https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=Thomasevano"
-);
-const projects = await response.json();
+const projects = await getPinnedRepos("Thomasevano");
 
 const aboutMeInfos = aboutMeInfosData[0];
 const t = useTranslations(defaultLang);
