@@ -31,10 +31,8 @@
 <script>
   const themeName = "thomas-portfolio";
 
-  const storedTheme = () => {
-    const raw = window.localStorage.getItem(themeName);
-    return raw ? JSON.parse(raw).class : "light";
-  };
+  const storedTheme = () =>
+    window.localStorage.getItem(themeName) ?? "light";
 
   // The swapped-in body carries the server-rendered class, so the stored theme
   // is reapplied before the new page is painted.
@@ -50,10 +48,7 @@
 
     themeSwitch.onclick = () => {
       document.body.className = document.body.className === "dark" ? "light" : "dark";
-      window.localStorage.setItem(
-        themeName,
-        JSON.stringify({ class: document.body.className })
-      );
+      window.localStorage.setItem(themeName, document.body.className);
     };
   });
 </script>
