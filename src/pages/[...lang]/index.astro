@@ -17,8 +17,12 @@ const projects = await getPinnedRepos("Thomasevano");
 
 const aboutMeData = {
   ...aboutMeInfos.data,
+  greeting: t("aboutMe.greeting"),
+  role: t("aboutMe.role"),
   description: t("aboutMe.description"),
   resumeLink: t("aboutMe.resume-link"),
+  projectsCta: t("aboutMe.projects-cta"),
+  contactCta: t("aboutMe.contact-cta"),
 };
 ---
 

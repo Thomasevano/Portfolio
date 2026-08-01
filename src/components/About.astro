@@ -7,18 +7,26 @@ const { about } = Astro.props;
 ---
 
 <div class="about center">
-  <div class="ml11">
-    <h1 class="title about__name">
-      Hi, I am {about.name}.
-    </h1>
+  <h1 class="title about__name">
+    <span class="about__name-greeting">{about.greeting}</span>
+    <span class="about__name-highlight">{about.name}</span>.
+  </h1>
 
-    <h2 class="about__role subtitle">
-      A {about.role}.
-    </h2>
-  </div>
+  <h2 class="about__role subtitle">
+    {about.role}
+  </h2>
   <p class="about__desc">
     {about.description}
   </p>
+
+  <div class="about__actions">
+    <a class="about__action about__action--primary" href="#projects">
+      {about.projectsCta}
+    </a>
+    <a class="about__action" href="mailto:contact@thomasevano.fr">
+      {about.contactCta}
+    </a>
+  </div>
 
   <div class="about__contact center">
     <a
@@ -68,31 +76,43 @@ const { about } = Astro.props;
 </div>
 
 <script>
-import { animate, utils } from 'animejs';
+  import { animate, utils } from "animejs";
 
-  const title = document.querySelector<HTMLHeadingElement>(".ml11 .title");
-  const subtitle = document.querySelector<HTMLHeadingElement>(".ml11 .subtitle");
-
-  if (title) formatTextToAnimate(title);
-  if (subtitle) formatTextToAnimate(subtitle);
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function formatTextToAnimate(text: HTMLHeadingElement) {
-    return (text.innerHTML = text.textContent.replace(
+    if (text.dataset.staggered) return;
+    text.dataset.staggered = "true";
+    text.innerHTML = (text.textContent ?? "").replace(
       // eslint-disable-next-line no-control-regex
       /([^\x00-\x80]|\w|\W)/g,
       "<span class='letter'>$&</span>"
-    ));
+    );
   }
 
-  utils.set('.ml11 .letter', { opacity: 0 });
+  document.addEventListener("astro:page-load", () => {
+    if (prefersReducedMotion()) return;
 
-  animate('.ml11 .letter', {
-    opacity: [0, 1],
-    duration: 950,
-    ease: 'outExpo',
-    delay: (_el, i) => 34 * ((i ?? 0) + 1),
+    const greeting = document.querySelector<HTMLHeadingElement>(".about__name-greeting");
+    const highlight = document.querySelector<HTMLHeadingElement>(".about__name-highlight");
+    const subtitle = document.querySelector<HTMLHeadingElement>(".about__role");
+
+    if (greeting) formatTextToAnimate(greeting);
+    if (highlight) formatTextToAnimate(highlight);
+    if (subtitle) formatTextToAnimate(subtitle);
+
+    utils.set(".about .letter", { opacity: 0 });
+
+    animate(".about .letter", {
+      opacity: [0, 1],
+      duration: 950,
+      ease: "outExpo",
+      delay: (_el, i) => 34 * ((i ?? 0) + 1),
+    });
   });
 </script>
+
 
 <style>
   .about {
@@ -100,12 +120,13 @@ import { animate, utils } from 'animejs';
     margin-top: 3em;
   }
 
-  .about__name > .letter:nth-child(1n + 11) {
-    color: var(--clr-primary);
-  }
 
   .about__role {
     margin-top: 1.2em;
+  }
+
+  .about__name-highlight :global(.letter) {
+    color: var(--clr-primary);
   }
 
   .about__desc {
@@ -116,6 +137,27 @@ import { animate, utils } from 'animejs';
   .about__desc,
   .about__contact {
     margin-top: 2.4em;
+  }
+
+  .about__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .about__action {
+    border: 1px solid var(--clr-primary);
+    border-radius: 0.25rem;
+    color: var(--clr-primary);
+    font-weight: 500;
+    padding: 0.65rem 1rem;
+  }
+
+  .about__action--primary {
+    background: var(--clr-primary);
+    color: var(--clr-bg);
   }
 
   .about .link--icon {

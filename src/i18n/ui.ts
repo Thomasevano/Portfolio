@@ -7,7 +7,11 @@ export const defaultLang = 'fr';
 
 export const ui = {
   en: {
-    'aboutMe.description': 'I’m a passionate french software engineer HETIC Alumni & Ex-PIX actually open to work. I love to learn new things and build cool apps. I\'m also passionate about music, sports and video games.',
+    'aboutMe.greeting': 'Hi, I’m',
+    'aboutMe.role': 'Fullstack Software Engineer',
+    'aboutMe.description': 'Fullstack developer working with TypeScript, React, and Node.js. I build web products end to end with an emphasis on architecture, testing, and performance. Previously worked at PIX; currently building MusicKeeper, an open-source music management app.',
+    'aboutMe.projects-cta': 'View my projects',
+    'aboutMe.contact-cta': 'Contact me',
     'aboutMe.resume-link': '/resume/thomas-evano-resume.pdf',
     'blog.date': 'Posted on',
     'blog.no-posts': 'There is no posts yet',
@@ -26,7 +30,11 @@ export const ui = {
     'title.skills': 'Skills'
   },
   fr: {
-    'aboutMe.description': 'Je suis un développeur passionné par la création d\'application avec du code de qualité ayant étudié a HETIC et travaillé chez PIX. J\'aime apprendre de nouvelles choses tous les jours, transmettre un savoir faire, une passion ainsi qu\'entre autre la musique, le sport, les séries, les jeux vidéo et la mangas.',
+    'aboutMe.greeting': 'Bonjour, je suis',
+    'aboutMe.role': 'Développeur fullstack',
+    'aboutMe.description': 'Développeur fullstack travaillant avec TypeScript, React et Node.js. Je conçois des applications web de bout en bout, avec une attention particulière portée à l’architecture, aux tests et à la performance. J’ai travaillé chez PIX et je développe MusicKeeper, une application open source de gestion musicale.',
+    'aboutMe.projects-cta': 'Voir mes projets',
+    'aboutMe.contact-cta': 'Me contacter',
     'aboutMe.resume-link': '/resume/thomas-evano-cv.pdf',
     'blog.date': 'Publié le',
     'blog.no-posts': 'Il n\'y a pas encore d\'articles',
