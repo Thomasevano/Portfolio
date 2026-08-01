@@ -1,4 +1,4 @@
-FROM node:24-slim AS base
+FROM node:lts-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV ASTRO_TELEMETRY_DISABLED=1
