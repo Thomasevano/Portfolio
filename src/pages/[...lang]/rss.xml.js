@@ -1,6 +1,7 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import { localeRoutes, localizePath, useTranslations } from "../../i18n/utils";
+import { isPublished } from "../../lib/posts";
 
 export const getStaticPaths = localeRoutes;
 
@@ -8,8 +9,9 @@ export async function GET(context) {
   const { lang } = context.props;
   const t = useTranslations(lang);
 
-  const posts = await getCollection("blogPosts", (post) =>
-    post.id.startsWith(`${lang}/`)
+  const posts = await getCollection(
+    "blogPosts",
+    (post) => post.id.startsWith(`${lang}/`) && isPublished(post)
   );
 
   return rss({

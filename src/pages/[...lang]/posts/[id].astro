@@ -2,9 +2,10 @@
 import { getCollection, render } from "astro:content";
 import MarkdownPostLayout from "../../../layouts/MarkdownPostLayout.astro";
 import { langParam, type Lang } from "../../../i18n/utils";
+import { isPublished } from "../../../lib/posts";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blogPosts");
+  const posts = await getCollection("blogPosts", isPublished);
 
   return posts.map((post) => {
     const [lang, ...id] = post.id.split("/");

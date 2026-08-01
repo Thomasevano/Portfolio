@@ -49,7 +49,7 @@
   "processBackgroundFileChanges": true,
   "syncDraftDate": false,
   "draftDetectionMode": "property",
-  "draftProperty": "",
+  "draftProperty": "draft",
   "draftLogic": "true-is-draft",
   "publishDateField": "pubDate",
   "renameOnTitleClick": false,

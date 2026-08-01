@@ -6,6 +6,7 @@ pubDate: 2025-03-27
 description: Il est enfin temps de lancer ma première app. Autour de la musique
   complètement open source et gratuit (pour le moment).
 author: Thomas Evano
+draft: false
 tags:
   - musickeeper
   - annoucement

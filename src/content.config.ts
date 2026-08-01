@@ -19,7 +19,12 @@ const aboutMe = defineCollection({
 })
 
 const postSchema = rssSchema.extend({
-  tags: z.array(z.string())
+  tags: z.array(z.string()),
+  // Commit and push freely with draft: true — the post ships in every
+  // build's dist/ but stays out of every production route (listing, tags,
+  // RSS, and its own page 404s) until it flips to draft: false. `astro dev`
+  // renders drafts anyway so they can be previewed locally before that.
+  draft: z.boolean().default(true),
 })
 
 const blogPosts = defineCollection({
