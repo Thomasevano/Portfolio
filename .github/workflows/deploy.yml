@@ -1,0 +1,63 @@
+name: Deploy to Coolify
+
+# Coolify's own git auto-deploy is intentionally off for this app (manual
+# Dockerfile buildpack, deploy-on-decision). This workflow is the one thing
+# allowed to trigger a deploy automatically, and only for the "publish an
+# article" decision: a push to main that touches a post file and leaves it
+# with `draft: false`. Every other push (code, drafts, WIP) does nothing.
+#
+# Setup (once): add three repo secrets under Settings > Secrets and
+# variables > Actions:
+#   COOLIFY_URL       e.g. https://coolify.example.com (no trailing slash)
+#   COOLIFY_TOKEN     API token from Coolify > Keys & Tokens > API tokens
+#   COOLIFY_APP_UUID  this app's resource UUID (Coolify > app > General)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/content/posts/**/*.md"
+  workflow_dispatch: {} # manual escape hatch: force a deploy on demand
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decide whether this push published a post
+        id: decide
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          before="${{ github.event.before }}"
+          if [ "$before" = "0000000000000000000000000000000000000000" ]; then
+            # Branch just created: nothing to diff against, treat every
+            # post file at HEAD as "changed".
+            changed=$(git ls-files 'src/content/posts/**/*.md')
+          else
+            changed=$(git diff --name-only "$before" "${{ github.sha }}" -- 'src/content/posts/**/*.md')
+          fi
+
+          deploy=false
+          for f in $changed; do
+            [ -f "$f" ] || continue # skip deletions; removing a live post needs a manual deploy
+            if grep -qE '^draft:[[:space:]]*false[[:space:]]*$' "$f"; then
+              deploy=true
+              echo "Published post detected: $f"
+            fi
+          done
+          echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger Coolify deploy
+        if: steps.decide.outputs.deploy == 'true'
+        run: |
+          curl -fsS -X POST "${{ secrets.COOLIFY_URL }}/api/v1/deploy" \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"uuid\": \"${{ secrets.COOLIFY_APP_UUID }}\"}"
