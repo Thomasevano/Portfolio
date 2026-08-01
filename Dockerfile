@@ -18,6 +18,11 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile --store-dir=/pnpm/store
 COPY . .
+# The CMS admin (decap-cms-app) only works against local_backend in dev —
+# its git-gateway backend has no Netlify Identity to authenticate against
+# on this nginx/Coolify stack. Strip it here so it's never bundled or
+# served from the production image; `pnpm dev` still has it locally.
+RUN rm -rf src/pages/admin.astro public/admin
 RUN pnpm run build
 
 FROM nginx:alpine AS runtime
