@@ -6,3 +6,20 @@ dist
 .DS_STORE
 .env
 .astro
+
+# Obsidian: keep the shared Vault CMS/plugin config, ignore per-machine
+# editor state (panel layout, hotkeys, quick-switcher/graph/bookmark state).
+src/content/.obsidian/workspace.json
+src/content/.obsidian/workspace-mobile.json
+src/content/.obsidian/workspaces.json
+src/content/.obsidian/hotkeys.json
+src/content/.obsidian/graph.json
+src/content/.obsidian/switcher.json
+src/content/.obsidian/backlink.json
+src/content/.obsidian/bookmarks.json
+
+# Obsidian: plugin code is reinstalled via the Community Plugins browser,
+# not vendored — keep each plugin's data.json (settings) only.
+src/content/.obsidian/plugins/*/main.js
+src/content/.obsidian/plugins/*/manifest.json
+src/content/.obsidian/plugins/*/styles.css

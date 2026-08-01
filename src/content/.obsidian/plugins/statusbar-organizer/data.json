@@ -1,0 +1,41 @@
+{
+  "activePreset": "Default",
+  "activeFullscreenPreset": "Default",
+  "separateFullscreenPreset": false,
+  "presets": {
+    "Default": {
+      "plugin-editing-toolbar-editingToolbar-statusbar-button-ui-tweaker-status-bar-hidden;1": {
+        "position": 1,
+        "visible": true
+      },
+      "plugin-editor-status;1": {
+        "position": 2,
+        "visible": true
+      },
+      "plugin-word-count;1": {
+        "position": 3,
+        "visible": true
+      },
+      "plugin-obsidian-git-obsidian-git-statusbar-idle-obsidian-git-statusbar-status-obsidian-git-statusbar-pull-obsidian-git-statusbar-message;1": {
+        "position": 4,
+        "visible": true
+      },
+      "ui-tweaker-status-bar-item;1": {
+        "position": 5,
+        "visible": true
+      },
+      "plugin-editing-toolbar-editingToolbar-statusbar-button;1": {
+        "position": 6,
+        "visible": true
+      },
+      "plugin-obsidian-git;1": {
+        "position": 7,
+        "visible": true
+      }
+    }
+  },
+  "presetsOrder": [
+    "Default"
+  ],
+  "version": "2.1.4"
+}
