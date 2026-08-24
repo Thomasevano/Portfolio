@@ -5,12 +5,17 @@ filters:
     - file.ext == "mdx"
 formulas:
   Slug: |-
-    if(file.folder == "posts", "/posts/" + file.name.replace(".md", ""), 
-      if(file.folder == "pages", "/" + file.name.replace(".md", ""), 
-        if(file.folder == "special", if(file.name.replace(".md", "") == "home", "/", "/" + file.name.replace(".md", "")), 
-          if(file.folder == "projects", "/projects/" + file.name.replace(".md", ""), 
-            if(file.folder == "docs", "/docs/" + file.name.replace(".md", ""), 
-              "/" + file.folder)))))
+    if(file.folder == "posts/en", "/en/posts/" + file.name.replace(".md", ""), 
+      if(file.folder == "posts/fr", "/posts/" + file.name.replace(".md", ""), 
+        if(file.folder == "posts", "/posts/" + file.name.replace(".md", ""), 
+          if(file.folder == "pages", "/" + file.name.replace(".md", ""), 
+            if(file.folder == "special", if(file.name.replace(".md", "") == "home", "/", "/" + file.name.replace(".md", "")), 
+              if(file.folder == "projects", "/projects/" + file.name.replace(".md", ""), 
+                if(file.folder == "docs", "/docs/" + file.name.replace(".md", ""), 
+                  "/" + file.folder)))))))
+  Lang: |-
+    if(file.folder == "posts/en", "EN", 
+      if(file.folder == "posts/fr", "FR", ""))
   Content Folder: |-
     if(file.name == "index",
       if(file.folder != "",
@@ -26,6 +31,8 @@ formulas:
       )
     )
 properties:
+  formula.Lang:
+    displayName: Language
   file.fullname:
     displayName: Full File Name
   file.name:
@@ -50,6 +57,9 @@ views:
     filters:
       and:
         - file.folder.startsWith("posts")
+    groupBy:
+      property: formula.Lang
+      direction: ASC
     sort:
       - property: pubDate
         direction: DESC
@@ -58,7 +68,7 @@ views:
     customizeNewButton: true
     newNoteLocation: posts
     fallbackToEmbeds: if-empty
-    propertyDisplay1: file.fullname
+    propertyDisplay1: formula.Lang
     showTextPreview: true
     propertyLabels: above
     titleProperty: note.title
