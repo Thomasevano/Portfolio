@@ -23,3 +23,16 @@ src/content/.obsidian/bookmarks.json
 src/content/.obsidian/plugins/*/main.js
 src/content/.obsidian/plugins/*/manifest.json
 src/content/.obsidian/plugins/*/styles.css
+
+# Obsidian: theme code is reinstalled via the Community Themes browser,
+# not vendored, same as plugin code above.
+src/content/.obsidian/themes/*/manifest.json
+src/content/.obsidian/themes/*/theme.css
+
+# Obsidian: settings for editing-quality-of-life plugins that aren't part
+# of the CMS/publishing stack (Vault CMS, obsidian-git, astro-composer,
+# bases-cms). Their data.json churns on every plugin auto-update (new
+# default keys, version bumps) without reflecting a deliberate choice.
+src/content/.obsidian/plugins/editing-toolbar/data.json
+src/content/.obsidian/plugins/omnisearch/data.json
+src/content/.obsidian/plugins/ui-tweaker/data.json
