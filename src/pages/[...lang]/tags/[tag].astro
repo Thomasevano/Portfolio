@@ -1,13 +1,12 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import BlogPost from "../../../components/BlogPost.astro";
-import { langParam, localizePath, useTranslations, type Lang } from "../../../i18n/utils";
-import { ui } from "../../../i18n/ui";
+import { langParam, locales, localizePath, useTranslations } from "../../../i18n/utils";
 import { getPublishedPosts, postSlug } from "../../../lib/posts";
 
 export async function getStaticPaths() {
   const postsByLang = await Promise.all(
-    (Object.keys(ui) as Lang[]).map(async (lang) => [lang, await getPublishedPosts(lang)] as const)
+    locales.map(async (lang) => [lang, await getPublishedPosts(lang)] as const)
   );
 
   return postsByLang.flatMap(([lang, langPosts]) => {

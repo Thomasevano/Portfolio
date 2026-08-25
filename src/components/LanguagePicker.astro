@@ -1,17 +1,12 @@
 ---
-import { localizePath, type Lang } from "../i18n/utils";
-import { languages } from "../i18n/ui";
-
-// Current path without its locale prefix, e.g. `/en/blog` -> `/blog`.
-const localePrefix = new RegExp(`^/(${Object.keys(languages).join("|")})(?=/|$)`);
-const basePath = Astro.url.pathname.replace(localePrefix, "") || "/";
+import { getLocaleLinks } from "../i18n/utils";
 ---
 
 <ul>
   {
-    Object.entries(languages).map(([lang, label]) => (
+    getLocaleLinks(Astro.url).map(({ href, label }) => (
       <li>
-        <a href={localizePath(basePath, lang as Lang)}>{label}</a>
+        <a href={href}>{label}</a>
       </li>
     ))
   }

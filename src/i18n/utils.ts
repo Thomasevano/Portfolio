@@ -1,22 +1,34 @@
-import { ui, defaultLang } from './ui';
+import { defaultLang, languages, ui } from "./ui";
 
 export type Lang = keyof typeof ui;
+export const locales = Object.keys(ui) as Lang[];
 
-export function getLangFromUrl(url: URL) {
-  const [, lang] = url.pathname.split('/');
-  if (lang in ui) return lang as Lang;
-  return defaultLang;
+const localePrefix = new RegExp(`^/(${locales.join("|")})(?=/|$)`);
+
+export function getLangFromUrl(url: URL): Lang {
+  const [, lang] = url.pathname.split("/");
+  return lang in ui ? (lang as Lang) : defaultLang;
 }
 
 export function useTranslations(lang: Lang) {
   return function t(key: keyof typeof ui[typeof defaultLang]) {
     return ui[lang][key] || ui[defaultLang][key];
-  }
+  };
 }
 
 /** Prefixes a path with its locale. The default locale stays unprefixed. */
 export function localizePath(path: string, lang: Lang) {
   return lang === defaultLang ? path : `/${lang}${path}`;
+}
+
+/** Navigation choices for the same route in every configured locale. */
+export function getLocaleLinks(url: URL) {
+  const path = url.pathname.replace(localePrefix, "") || "/";
+  return Object.entries(languages).map(([lang, label]) => ({
+    lang: lang as Lang,
+    label,
+    href: localizePath(path, lang as Lang),
+  }));
 }
 
 /**
@@ -29,7 +41,7 @@ export function langParam(lang: Lang) {
 
 /** One `getStaticPaths` entry per locale, for pages that exist in every language. */
 export function localeRoutes() {
-  return (Object.keys(ui) as Lang[]).map((lang) => ({
+  return locales.map((lang) => ({
     params: { lang: langParam(lang) },
     props: { lang },
   }));
