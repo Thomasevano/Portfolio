@@ -1,17 +1,17 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import MarkdownPostLayout from "../../../layouts/MarkdownPostLayout.astro";
-import { langParam, type Lang } from "../../../i18n/utils";
-import { isPublished } from "../../../lib/posts";
+import { langParam } from "../../../i18n/utils";
+import { getPublishedPosts, postLanguage, postSlug } from "../../../lib/posts";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blogPosts", isPublished);
+  const posts = await getPublishedPosts();
 
   return posts.map((post) => {
-    const [lang, ...id] = post.id.split("/");
+    const lang = postLanguage(post);
     return {
-      params: { lang: langParam(lang as Lang), id: id.join("/") },
-      props: { post, lang: lang as Lang },
+      params: { lang: langParam(lang), id: postSlug(post) },
+      props: { post, lang },
     };
   });
 }

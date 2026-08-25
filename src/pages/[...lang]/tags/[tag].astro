@@ -1,16 +1,16 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import BlogPost from "../../../components/BlogPost.astro";
 import { langParam, localizePath, useTranslations, type Lang } from "../../../i18n/utils";
 import { ui } from "../../../i18n/ui";
-import { isPublished } from "../../../lib/posts";
+import { getPublishedPosts, postSlug } from "../../../lib/posts";
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection("blogPosts", isPublished);
+  const postsByLang = await Promise.all(
+    (Object.keys(ui) as Lang[]).map(async (lang) => [lang, await getPublishedPosts(lang)] as const)
+  );
 
-  return (Object.keys(ui) as Lang[]).flatMap((lang) => {
-    const langPosts = allPosts.filter((post) => post.id.startsWith(`${lang}/`));
+  return postsByLang.flatMap(([lang, langPosts]) => {
     const tags = [...new Set(langPosts.flatMap((post) => post.data.tags))];
 
     return tags.map((tag) => ({
@@ -35,7 +35,7 @@ const t = useTranslations(lang);
       {
         posts.map((post) => (
           <BlogPost
-            url={localizePath(`/posts/${post.id.slice(lang.length + 1)}/`, lang)}
+            url={localizePath(`/posts/${postSlug(post)}/`, lang)}
             post={post}
           />
         ))

@@ -1,7 +1,6 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
 import { localeRoutes, localizePath, useTranslations } from "../../i18n/utils";
-import { isPublished } from "../../lib/posts";
+import { getPublishedPosts, postSlug } from "../../lib/posts";
 
 export const getStaticPaths = localeRoutes;
 
@@ -9,10 +8,7 @@ export async function GET(context) {
   const { lang } = context.props;
   const t = useTranslations(lang);
 
-  const posts = await getCollection(
-    "blogPosts",
-    (post) => post.id.startsWith(`${lang}/`) && isPublished(post)
-  );
+  const posts = await getPublishedPosts(lang);
 
   return rss({
     title: t("rss.title"),
@@ -22,7 +18,7 @@ export async function GET(context) {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
-      link: localizePath(`/posts/${post.id.slice(lang.length + 1)}/`, lang),
+      link: localizePath(`/posts/${postSlug(post)}/`, lang),
     })),
     customData: `<language>${lang}</language>`,
   });

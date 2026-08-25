@@ -1,15 +1,11 @@
 ---
 import { localizePath, useTranslations, type Lang } from "../i18n/utils";
 import BaseLayout from "./BaseLayout.astro";
-import { getCollection } from "astro:content";
-import { ui } from "../i18n/ui";
+import { getPostTranslations } from "../lib/posts";
 
 const { frontmatter, lang, minutesRead, slug } = Astro.props;
 
-const posts = await getCollection("blogPosts");
-const translations = (Object.keys(ui) as Lang[]).filter(
-  (l) => l !== lang && posts.some((post) => post.id === `${l}/${slug}`)
-);
+const translations = await getPostTranslations(slug, lang as Lang);
 
 const t = useTranslations(lang);
 ---
