@@ -1,28 +1,17 @@
 ---
-import MainHead from "../components/MainHead.astro";
-import Footer from "../components/Footer.astro";
-import Navbar from "../components/Navbar.astro";
-import { getLangFromUrl } from "../i18n/utils";
-
-const lang = getLangFromUrl(Astro.url);
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang={lang}>
-  <head>
-    <MainHead title="Not Found" />
-    <style>
-      .wrapper {
-        margin-top: 2em;
-        margin-bottom: 2em;
-      }
-    </style>
-  </head>
-  <body>
-    <Navbar />
-    <div class="wrapper">
-      <h1>Page Not Found</h1>
-      <p>Not found</p>
-    </div>
-    <Footer lang={lang} />
-  </body>
-</html>
+<BaseLayout pageTitle="Not Found">
+  <div class="wrapper">
+    <h1>Page Not Found</h1>
+    <p>Not found</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .wrapper {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+</style>
