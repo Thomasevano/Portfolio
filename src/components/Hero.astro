@@ -1,0 +1,154 @@
+---
+import { FileText, Mail } from "@lucide/astro";
+import GithubIcon from "./GithubIcon.astro";
+import LinkedinIcon from "./LinkedinIcon.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { profile } = Astro.props;
+---
+
+<section class="about center" aria-labelledby="hero-title">
+  <h1 id="hero-title" class="title about__name">{t("hero.title")}</h1>
+  <h2 class="about__role subtitle">{t("hero.eyebrow")}</h2>
+  <p class="about__desc">{t("hero.description")}</p>
+
+  <div class="about__actions">
+    <a class="about__action about__action--primary" href="#experience">
+      {t("hero.experience-cta")}
+    </a>
+    <a class="about__action" href="#music-keeper">{t("hero.project-cta")}</a>
+  </div>
+
+  <nav class="about__contact center" aria-label={t("contact.kicker")}>
+    <a
+      href={t("hero.resume-url")}
+      aria-label={t("hero.resume-cta")}
+      class="link link--icon"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <FileText aria-hidden="true" />
+    </a>
+    <a
+      href={`mailto:${profile.email}`}
+      aria-label={t("hero.email-cta")}
+      class="link link--icon"
+    >
+      <Mail aria-hidden="true" />
+    </a>
+    <a
+      href={profile.github}
+      aria-label={t("hero.github-cta")}
+      class="link link--icon"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <GithubIcon aria-hidden="true" />
+    </a>
+    <a
+      href={profile.linkedin}
+      aria-label={t("hero.linkedin-cta")}
+      class="link link--icon"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <LinkedinIcon aria-hidden="true" />
+    </a>
+  </nav>
+</section>
+
+<script>
+  import { animate, utils } from "animejs";
+
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function formatTextToAnimate(text: HTMLHeadingElement) {
+    if (text.dataset.staggered) return;
+    text.dataset.staggered = "true";
+    text.innerHTML = (text.textContent ?? "").replace(
+      // eslint-disable-next-line no-control-regex
+      /([^\x00-\x80]|\w|\W)/g,
+      "<span class='letter'>$&</span>"
+    );
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    if (prefersReducedMotion()) return;
+
+    const title = document.querySelector<HTMLHeadingElement>(".about__name");
+    const role = document.querySelector<HTMLHeadingElement>(".about__role");
+
+    if (title) formatTextToAnimate(title);
+    if (role) formatTextToAnimate(role);
+
+    utils.set(".about .letter", { opacity: 0 });
+    animate(".about .letter", {
+      opacity: [0, 1],
+      duration: 950,
+      ease: "outExpo",
+      delay: (_element, index) => 34 * ((index ?? 0) + 1),
+    });
+  });
+</script>
+
+<style>
+  .about {
+    flex-direction: column;
+    margin-top: 3em;
+    text-align: center;
+  }
+
+  .about__role {
+    margin-top: 1.2em;
+  }
+
+  .about__desc {
+    max-width: 650px;
+    margin-top: 2.4em;
+    font-size: 1rem;
+  }
+
+  .about__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .about__action {
+    border: 1px solid var(--clr-primary);
+    border-radius: 0.25rem;
+    padding: 0.65rem 1rem;
+    color: var(--clr-primary-text);
+    font-weight: 500;
+  }
+
+  .about__action--primary {
+    background: var(--clr-primary);
+    color: var(--clr-primary-contrast);
+  }
+  .about__contact {
+    gap: 0.8em;
+    margin-top: 2.4em;
+  }
+
+  @media (max-width: 600px) {
+    .app .about {
+      align-items: flex-start;
+      margin-top: 2em;
+      text-align: left;
+    }
+
+    .about__actions {
+      justify-content: flex-start;
+    }
+
+    .about__contact {
+      margin: 2.4em auto;
+    }
+  }
+</style>

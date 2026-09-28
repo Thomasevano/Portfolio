@@ -1,0 +1,84 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section id="experience" class="section" aria-labelledby="experience-title">
+  <h2 id="experience-title" class="section__title">{t("experience.title")}</h2>
+  <p class="experience__intro">{t("experience.intro")}</p>
+
+  <article class="experience-card">
+    <div class="experience-card__heading">
+      <div>
+        <h3>{t("experience.company")}</h3>
+        <p>{t("experience.role")}</p>
+      </div>
+      <p class="experience-card__period">{t("experience.period")}</p>
+    </div>
+
+    <ul class="achievement-list">
+      <li>{t("experience.achievement-1")}</li>
+      <li>{t("experience.achievement-2")}</li>
+      <li>{t("experience.achievement-3")}</li>
+      <li>{t("experience.achievement-4")}</li>
+    </ul>
+
+    <p class="experience-card__stack">
+      <strong>{t("experience.stack-label")}:</strong>
+      Ember.js · TypeScript · Vue.js · Hapi.js
+    </p>
+  </article>
+</section>
+
+<style>
+  .experience__intro {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .experience-card {
+    max-width: 850px;
+    margin: 2em auto 0;
+    padding: 2em;
+    box-shadow: var(--shadow);
+  }
+
+  .experience-card__heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+  }
+
+  .experience-card__heading p,
+  .experience-card__stack {
+    color: var(--clr-fg);
+  }
+
+  .experience-card__period {
+    flex: none;
+    color: var(--clr-primary-text);
+    font-weight: 500;
+  }
+
+  .achievement-list {
+    margin: 1.5em 0 0 1.25em;
+  }
+
+  .achievement-list li {
+    margin-top: 0.5em;
+    list-style: disc;
+  }
+
+  .experience-card__stack {
+    margin-top: 1.5em;
+  }
+
+  @media (max-width: 600px) {
+    .experience-card__heading {
+      flex-direction: column;
+    }
+  }
+</style>

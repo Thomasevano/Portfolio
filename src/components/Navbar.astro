@@ -1,10 +1,9 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro";
 import { Image } from "astro:assets";
-import heyMemoji from "../assets/hey.webp";
-
-import { getLangFromUrl, localizePath, useTranslations } from "../i18n/utils";
 import { Menu, Rss } from "@lucide/astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import heyMemoji from "../assets/hey.webp";
+import { getLangFromUrl, localizePath, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -13,58 +12,51 @@ const path = (to: string) => localizePath(to, lang);
 
 <header class="header">
   <div class="icons">
-    <Image
-      src={heyMemoji}
-      style="height: 3rem;width: 3rem;margin-top: -1.25rem;"
-      alt="hey waving memoji"
-    />
+    <a href={path("/")} aria-label={t("nav.home-label")}>
+      <Image
+        src={heyMemoji}
+        style="height: 3rem;width: 3rem;margin-top: -1.25rem;"
+        alt=""
+      />
+    </a>
     <button
       class="menu-icon"
       id="menu-toggle"
       type="button"
       aria-controls="menu-items"
       aria-expanded="false"
-      aria-label="menu"
+      aria-label={t("nav.menu")}
     >
-      <Menu />
+      <Menu aria-hidden="true" />
     </button>
   </div>
-  <div class="menu-items" id="menu-items">
+
+  <nav class="menu-items" id="menu-items" aria-label={t("nav.label")}>
     <ul class="menu-items__list">
-      <li>
-        <a href={path("/")} class="link link--nav">{t("nav.home")}</a>
-      </li>
-      <li>
-        <a href={path("/blog")} class="link link--nav">{t("nav.blog")}</a>
-      </li>
-      <li>
-        <a href={path("/#about")} class="link link--nav">{t("nav.about")}</a>
-      </li>
-      <li>
-        <a href={path("/#projects")} class="link link--nav">{t("nav.projects")}</a>
-      </li>
-      <li>
-        <a href={path("/#skills")} class="link link--nav">{t("nav.skills")}</a>
-      </li>
+      <li><a href={path("/")} class="link link--nav">{t("nav.home")}</a></li>
+      <li><a href={path("/#experience")} class="link link--nav">{t("nav.experience")}</a></li>
+      <li><a href={path("/#projects")} class="link link--nav">{t("nav.projects")}</a></li>
+      <li><a href={path("/#capabilities")} class="link link--nav">{t("nav.capabilities")}</a></li>
+      <li><a href={path("/blog")} class="link link--nav">{t("nav.blog")}</a></li>
     </ul>
     <a
       href={path("/rss.xml")}
       class="rss-link link link--nav"
-      aria-label={t("footer.subscribe-rss")}><Rss /></a
+      aria-label={t("footer.subscribe-rss")}
     >
+      <Rss aria-hidden="true" />
+    </a>
     <div class="theme-toggle">
-      <ThemeToggle />
+      <ThemeToggle label={t("a11y.theme-toggle")} />
     </div>
-  </div>
+  </nav>
 </header>
 
 <script>
-  // ClientRouter swaps the whole body on navigation, so the handlers are
-  // reattached on every page load rather than bound once at module scope.
   document.addEventListener("astro:page-load", () => {
     const toggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("menu-items");
-    if (!toggle || !menu) throw new Error("navbar menu elements not found");
+    if (!toggle || !menu) return;
 
     const setOpen = (open: boolean) => {
       menu.toggleAttribute("data-open", open);
@@ -72,7 +64,6 @@ const path = (to: string) => localizePath(to, lang);
     };
 
     toggle.onclick = () => setOpen(toggle.getAttribute("aria-expanded") !== "true");
-    // The mobile menu covers the page, so following a link has to close it.
     menu.onclick = (event) => {
       if ((event.target as HTMLElement).closest("a")) setOpen(false);
     };
@@ -86,15 +77,16 @@ const path = (to: string) => localizePath(to, lang);
     margin: 1.25rem 0;
     padding: 0 1em;
   }
+
   .icons {
     display: flex;
     justify-content: space-between;
   }
 
   .menu-icon {
-    background: none;
     border: none;
     padding: 0;
+    background: none;
     color: inherit;
     cursor: pointer;
   }
@@ -104,20 +96,29 @@ const path = (to: string) => localizePath(to, lang);
     flex-direction: column;
   }
 
+  .rss-link :global(svg),
+  .theme-toggle :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+
   .theme-toggle {
     margin: 1rem 0;
   }
+
   @media (min-width: 1024px) {
     .header {
       flex-direction: row;
       justify-content: space-between;
-      align-items: center;
       padding: 0;
+      align-items: center;
     }
+
     .menu-items__list {
       flex-direction: row;
       gap: 0.75rem;
     }
+
     .theme-toggle {
       display: flex;
       align-items: center;

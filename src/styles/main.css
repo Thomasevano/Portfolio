@@ -1,8 +1,9 @@
 html {
-  font-family: 'Poppins', sans-serif;
-  line-height: 1.5;
   max-width: 1100px;
   margin: 0 auto;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5;
+  scroll-padding-top: 1rem;
 }
 
 :focus-visible {
@@ -18,27 +19,52 @@ body {
 }
 
 .light {
+  color-scheme: light;
   --clr-bg: #fcfcfc;
   --clr-bg-alt: #fff;
   --clr-fg: #555;
   --clr-fg-alt: #444;
   --clr-primary: #00dc82;
-  /* --clr-primary: #2978b5; */
-  --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  --clr-primary-text: #007a49;
+  --clr-primary-contrast: #17382d;
+  --shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 }
 
 .dark {
+  color-scheme: dark;
   --clr-bg: #23283e;
   --clr-bg-alt: #2a2f4c;
   --clr-fg: #bdbddd;
   --clr-fg-alt: #cdcdff;
   --clr-primary: #90a0d9;
-  --shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  --clr-primary-text: #aebaf0;
+  --clr-primary-contrast: #23283e;
+  --shadow: rgba(0, 0, 0, 0.16) 0 10px 36px 0,
+    rgba(0, 0, 0, 0.06) 0 0 0 1px;
 }
 
 .app {
   padding: 0 1em;
+}
+
+.app:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 20;
+  padding: 0.65rem 1rem;
+  background: var(--clr-bg-alt);
+  color: var(--clr-fg-alt);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .section {
@@ -46,8 +72,8 @@ body {
 }
 
 .section__title {
-  text-align: center;
   margin-bottom: 1em;
+  text-align: center;
   text-transform: uppercase;
 }
 
@@ -57,25 +83,24 @@ body {
 }
 
 .link {
-  color: var(--clr-primary);
-  padding: 0 0 0.3em 0;
   position: relative;
+  padding: 0 0 0.3em;
+  color: var(--clr-primary-text);
   cursor: pointer;
 }
 
 .link:hover,
 .link:focus {
-  color: var(--clr-primary);
+  color: var(--clr-primary-text);
 }
 
 .link::before {
-  content: '';
-  display: inline;
-  width: 0%;
-  height: 0.2em;
   position: absolute;
   bottom: 0;
+  width: 0;
+  height: 0.2em;
   background-color: var(--clr-primary);
+  content: "";
   transition: width 0.2s ease-in;
 }
 
@@ -85,13 +110,13 @@ body {
 }
 
 .link--nav {
-  color: var(--clr-fg);
-  text-transform: lowercase;
-  font-weight: 500;
   display: flex;
   width: fit-content;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  color: var(--clr-fg);
+  font-weight: 500;
+  text-transform: lowercase;
   align-items: center;
 }
 
@@ -100,9 +125,9 @@ body {
 }
 
 .icon {
-  height: 24px;
-  width: 24px;
   display: inline-block;
+  width: 24px;
+  height: 24px;
 }
 
 .menu-icon {
@@ -114,13 +139,11 @@ body {
   margin-top: 0.5rem;
 }
 
-/* Collapsed behind the hamburger below the desktop breakpoint. Toggled with an
-   attribute rather than [hidden], which would also hide it from assistive tech
-   on desktop, where the menu is always on screen. */
 @media (max-width: 1023.98px) {
   .menu-items {
     display: none;
   }
+
   .menu-items[data-open] {
     display: block;
   }
@@ -131,39 +154,41 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
 .posts__title {
   margin-bottom: 2rem;
 }
+
 .posts__grid {
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-gap: 2em;
+  gap: 2em;
+  margin: 0 auto;
 }
 
 .post__tags {
   display: flex;
   flex-wrap: wrap;
-  margin: 1.2em 0 0;
   gap: 0.5em;
+  margin: 1.2em 0 0;
 }
 
 .post__tags-item {
-  font-weight: 500;
-  font-size: 0.8rem;
-  color: var(--clr-primary);
-  background-color: var(--clr-bg);
   border: 1px solid var(--clr-primary);
-  padding: 0.2em 0.5em;
   border-radius: 4em;
+  padding: 0.2em 0.5em;
+  background-color: var(--clr-bg);
+  color: var(--clr-primary-text);
+  font-size: 0.8rem;
+  font-weight: 500;
   text-decoration: none;
   transition: background-color 0.2s linear;
 }
 
 .post__tags-item:hover {
+  border-color: var(--clr-primary);
   background-color: var(--clr-primary);
-  color: var(--clr-bg);
-  border-color: var(--clr-bg);
+  color: var(--clr-primary-contrast);
 }
 
 @media only screen and (min-width: 768px) {
@@ -176,9 +201,10 @@ body {
   .app {
     padding: 0;
   }
+
   .link--nav {
-    margin-left: 0.75rem;
     margin-right: 0.75rem;
+    margin-left: 0.75rem;
   }
 
   .menu-icon {

@@ -1,27 +1,168 @@
 ---
-import Project from "./Project.astro";
-import type { PinnedRepo } from "../lib/pinnedRepos";
+import musicKeeperScreenshot from "../assets/musickeeper-landing.webp";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import ProjectCard from "./ProjectCard.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { projects } = Astro.props;
+const featuredProjects = [
+  {
+    id: "music-keeper",
+    image: {
+      src: musicKeeperScreenshot,
+      alt: t("projects.music.image-alt"),
+    },
+    label: t("projects.music.label"),
+    title: t("projects.music.title"),
+    description: t("projects.music.description"),
+    achievements: [
+      t("projects.music.achievement-1"),
+      t("projects.music.achievement-2"),
+      t("projects.music.achievement-3"),
+      t("projects.music.achievement-4"),
+    ],
+    stack: ["Svelte", "TypeScript", "AdonisJS", "Docker"],
+    links: [
+      {
+        href: "https://github.com/Thomasevano/musickeeper",
+        label: t("projects.music.source"),
+        kind: "source" as const,
+      },
+      {
+        href: "https://musickeeper.app",
+        label: t("projects.music.demo"),
+        kind: "external" as const,
+      },
+    ],
+  },
+  {
+    label: t("projects.easy.label"),
+    title: t("projects.easy.title"),
+    description: t("projects.easy.description"),
+    achievements: [
+      t("projects.easy.achievement-1"),
+      t("projects.easy.achievement-2"),
+      t("projects.easy.achievement-3"),
+    ],
+    stack: ["React", "TypeScript", "Go", "PostgreSQL", "Docker"],
+    links: [
+      {
+        href: "https://github.com/Thomasevano/EasyDocker",
+        label: t("projects.easy.source"),
+        kind: "source" as const,
+      },
+    ],
+  },
+];
+
+const otherProjects = [
+  {
+    label: "TypeScript",
+    title: "eminem_quotes",
+    description: t("projects.more.eminem"),
+    links: [
+      {
+        href: "https://github.com/Thomasevano/eminem_quotes",
+        label: `eminem_quotes — ${t("projects.more.source")}`,
+        kind: "source" as const,
+      },
+      {
+        href: "https://eminem-quotes.tvn.dev",
+        label: `eminem_quotes — ${t("projects.more.demo")}`,
+        kind: "external" as const,
+      },
+    ],
+  },
+  {
+    label: "TypeScript",
+    title: "game-of-life",
+    description: t("projects.more.game"),
+    links: [
+      {
+        href: "https://github.com/Thomasevano/game-of-life",
+        label: `game-of-life — ${t("projects.more.source")}`,
+        kind: "source" as const,
+      },
+    ],
+  },
+  {
+    label: "TypeScript",
+    title: "puissance4",
+    description: t("projects.more.connect-four"),
+    links: [
+      {
+        href: "https://github.com/awuzi/puissance4",
+        label: `puissance4 — ${t("projects.more.source")}`,
+        kind: "source" as const,
+      },
+    ],
+  },
+  {
+    label: "Vue",
+    title: "sneakers-collection",
+    description: t("projects.more.sneakers"),
+    links: [
+      {
+        href: "https://github.com/Thomasevano/sneakers-collection",
+        label: `sneakers-collection — ${t("projects.more.source")}`,
+        kind: "source" as const,
+      },
+    ],
+  },
+];
 ---
 
-<section id="projects" class="section projects">
-  <h2 class="section__title">{t("title.projects")}</h2>
+<section id="projects" class="section projects" aria-labelledby="projects-title">
+  <h2 id="projects-title" class="section__title">{t("projects.title")}</h2>
+  <p class="projects__intro">{t("projects.intro")}</p>
+
   <div class="projects__grid">
-    {projects.map((project: PinnedRepo) => <Project project={project} />)}
+    {featuredProjects.map((project) => <ProjectCard {...project} />)}
   </div>
+
+  <details class="more-projects">
+    <summary>{t("projects.more.title")}</summary>
+    <p>{t("projects.more.intro")}</p>
+    <div class="projects__grid projects__grid--more">
+      {otherProjects.map((project) => <ProjectCard {...project} compact />)}
+    </div>
+  </details>
 </section>
 
 <style>
+  .projects__intro,
+  .more-projects > p {
+    max-width: 700px;
+    margin: 0 auto 2em;
+    text-align: center;
+  }
+
   .projects__grid {
-    max-width: 1100px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
-    grid-gap: 2em;
+    gap: 2em;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .more-projects {
+    margin-top: 2em;
+    text-align: center;
+  }
+
+  .more-projects summary {
+    width: fit-content;
+    margin: 0 auto;
+    color: var(--clr-primary-text);
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .more-projects > p {
+    margin-top: 1em;
+  }
+  .projects__grid--more {
+    margin-top: 2em;
   }
 </style>

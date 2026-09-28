@@ -1,0 +1,166 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { ExternalLink } from "@lucide/astro";
+import GithubIcon from "./GithubIcon.astro";
+
+interface ProjectLink {
+  href: string;
+  label: string;
+  kind: "source" | "external";
+}
+
+interface Props {
+  id?: string;
+  image?: {
+    src: ImageMetadata;
+    alt: string;
+  };
+  label: string;
+  title: string;
+  description: string;
+  achievements?: string[];
+  stack?: string[];
+  links: ProjectLink[];
+  compact?: boolean;
+}
+
+const {
+  id,
+  image,
+  label,
+  title,
+  description,
+  achievements,
+  stack,
+  links,
+  compact = false,
+} = Astro.props;
+---
+
+<article id={id} class:list={["project", { "project--compact": compact }]}>
+  {
+    image && (
+      <Image
+        class="project__image"
+        src={image.src}
+        alt={image.alt}
+        width={400}
+        format="webp"
+      />
+    )
+  }
+  <p class="project__label">{label}</p>
+  <h3 class="project__title">{title}</h3>
+  <p class="project__description">{description}</p>
+  {
+    achievements && (
+      <ul class="project__achievements">
+        {achievements.map((achievement) => <li>{achievement}</li>)}
+      </ul>
+    )
+  }
+  {
+    stack && (
+      <ul class="project__stack" aria-label="Stack">
+        {stack.map((technology) => <li>{technology}</li>)}
+      </ul>
+    )
+  }
+  <div class="project__links">
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          aria-label={link.label}
+          class="link link--icon"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {link.kind === "source" ? (
+            <GithubIcon aria-hidden="true" />
+          ) : (
+            <ExternalLink aria-hidden="true" />
+          )}
+        </a>
+      ))
+    }
+  </div>
+</article>
+
+<style>
+  .project {
+    display: flex;
+    flex-direction: column;
+    width: stretch;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    margin: 0 auto;
+    padding: 2em;
+    text-align: center;
+    align-items: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s linear;
+  }
+
+  .project:hover {
+    transform: translateY(-7px);
+  }
+
+  .project__image {
+    width: 200px;
+    height: 112px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .project__label {
+    margin-top: 1em;
+    color: var(--clr-primary-text);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .project__title {
+    margin-top: 0.5em;
+  }
+
+  .project__description {
+    margin-top: 1em;
+  }
+
+  .project__achievements {
+    margin: 1.25em 0 0 1.25em;
+    text-align: left;
+  }
+
+  .project__achievements li {
+    margin-top: 0.45em;
+    list-style: disc;
+  }
+
+  .project__stack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1.2em 0;
+  }
+
+  .project__stack li {
+    margin: 0.5em;
+    color: var(--clr-fg-alt);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .project__links {
+    display: flex;
+    justify-content: center;
+    gap: 0.75em;
+    margin-top: auto;
+  }
+
+  .project--compact {
+    min-height: 240px;
+  }
+</style>

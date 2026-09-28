@@ -1,10 +1,9 @@
 ---
+import { Rss } from "@lucide/astro";
 import { localizePath, useTranslations } from "../i18n/utils";
 import LanguagePicker from "./LanguagePicker.astro";
-import { Rss } from "@lucide/astro";
 
 const currentYear = new Date().getFullYear();
-
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
@@ -13,29 +12,36 @@ const t = useTranslations(lang);
   <LanguagePicker />
   <a href={localizePath("/rss.xml", lang)} class="link footer__link rss-link">
     {t("footer.subscribe-rss")}
-    <Rss title="RSS Feed icon" />
+    <Rss aria-hidden="true" />
   </a>
-  <span>🚀 Built by Thomas Evano using Astro with ♥️ &copy; {currentYear}</span>
+  <span>{t("footer.built")} · © {currentYear}</span>
 </footer>
+
 <style>
   footer {
-    text-align: center;
-    padding-bottom: 1rem;
-    margin-top: auto;
     display: flex;
     flex-direction: column;
+    margin-top: auto;
+    padding-bottom: 1rem;
+    text-align: center;
     align-items: center;
   }
 
   .footer__link {
+    color: var(--clr-fg);
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--clr-fg);
   }
+
   .rss-link {
-    margin: 1em 0.5em 0;
     display: inline-flex;
     gap: 1em;
+    margin: 1em 0.5em 0;
+  }
+
+  .rss-link :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
   @media (max-width: 600px) {

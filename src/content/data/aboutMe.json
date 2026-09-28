@@ -1,22 +1,6 @@
 {
   "name": "Thomas Evano",
-  "role": "Software Engineer",
+  "email": "contact@thomasevano.fr",
   "linkedin": "https://www.linkedin.com/in/thomasevano/",
-  "github": "https://github.com/Thomasevano",
-  "twitter": "https://twitter.com/tvn_dev",
-  "bluesky": "https://bsky.app/profile/tvn.dev",
-  "skills": [
-    "JS",
-    "TypeScript",
-    "Docker",
-    "NodeJS",
-    "React",
-    "Tailwind CSS",
-    "Vite",
-    "TDD",
-    "Clean Code",
-    "VueJS",
-    "Go",
-    "Svelte"
-  ]
+  "github": "https://github.com/Thomasevano"
 }

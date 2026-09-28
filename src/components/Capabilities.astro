@@ -1,0 +1,61 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const groups = [
+  ["capabilities.fullstack-title", "capabilities.fullstack-items"],
+  ["capabilities.quality-title", "capabilities.quality-items"],
+  ["capabilities.delivery-title", "capabilities.delivery-items"],
+  ["capabilities.data-title", "capabilities.data-items"],
+] as const;
+---
+
+<section id="capabilities" class="section capabilities" aria-labelledby="capabilities-title">
+  <h2 id="capabilities-title" class="section__title">{t("capabilities.title")}</h2>
+  <p class="capabilities__intro">{t("capabilities.intro")}</p>
+
+  <ul class="capabilities__list">
+    {
+      groups.map(([title, items]) => (
+        <li>
+          <strong>{t(title)}</strong>
+          <span>{t(items)}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .capabilities__intro {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .capabilities__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5em 2em;
+    max-width: 850px;
+    margin: 2em auto;
+  }
+
+  .capabilities__list li {
+    max-width: 360px;
+    text-align: center;
+  }
+
+  .capabilities__list strong,
+  .capabilities__list span {
+    display: block;
+  }
+
+  .capabilities__list strong {
+    margin-bottom: 0.35em;
+    color: var(--clr-fg-alt);
+  }
+</style>
