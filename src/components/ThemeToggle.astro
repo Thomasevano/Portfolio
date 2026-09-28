@@ -1,4 +1,12 @@
-<button class="link link--nav" id="theme-switch" aria-label="theme switcher">
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<button class="link link--nav" id="theme-switch" type="button" aria-label={label}>
   <!-- Only the icon for the theme you can switch *to* is shown; CSS picks it from the body class. -->
   <svg
     class="icon icon--moon"
@@ -7,6 +15,8 @@
     height="1.5em"
     preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 32 32"
+    aria-hidden="true"
+    focusable="false"
   >
     <path
       fill="currentColor"
@@ -20,6 +30,8 @@
     height="1.5em"
     preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 32 32"
+    aria-hidden="true"
+    focusable="false"
   >
     <path
       fill="currentColor"
