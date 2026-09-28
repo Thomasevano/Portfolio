@@ -7,33 +7,40 @@ const pageLang = getLangFromUrl(Astro.url);
 const { remarkPluginFrontmatter } = await render(post);
 ---
 
-<a class="post" href={url}>
-  <div class="post--header">
-    <p class="post--header__date">
-      {pubDate.toLocaleDateString(pageLang, { dateStyle: "long" })}
-    </p>
-    <p class="post--header__minutes-read">
-      {remarkPluginFrontmatter.minutesRead}
-    </p>
-  </div>
-  <h2 class="post__title">{title}</h2>
-  <p class="post__description">{description}</p>
-  <ul class="post__tags">
-    {
-      tags
-        ? tags.map((tag: string) => <li class="post__tags-item">#{tag}</li>)
-        : ""
-    }
-  </ul>
-</a>
+<li class="post-item">
+  <a class="post" href={url}>
+    <div class="post--header">
+      <p class="post--header__date">
+        {pubDate.toLocaleDateString(pageLang, { dateStyle: "long" })}
+      </p>
+      <p class="post--header__minutes-read">
+        {remarkPluginFrontmatter.minutesRead}
+      </p>
+    </div>
+    <h2 class="post__title">{title}</h2>
+    <p class="post__description">{description}</p>
+    <ul class="post__tags">
+      {
+        tags
+          ? tags.map((tag: string) => <li class="post__tags-item">#{tag}</li>)
+          : ""
+      }
+    </ul>
+  </a>
+</li>
 
 <style>
+  .post-item {
+    min-width: 0;
+  }
+
   .post {
     padding: 1em;
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
   }
 
   .post--header {
