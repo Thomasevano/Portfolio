@@ -27,7 +27,10 @@ const { lang, posts } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<BaseLayout pageTitle={tag}>
+<BaseLayout
+  pageTitle={`#${tag} — Thomas Evano`}
+  description={`${t("meta.tags-description")} #${tag}.`}
+>
   <section class="posts">
     <h1 class="posts__title">{t("tags.title")}{tag}</h1>
     <ul class="posts__grid">

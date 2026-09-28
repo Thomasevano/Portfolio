@@ -13,7 +13,7 @@ const posts = await getPublishedPosts(lang);
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 ---
 
-<BaseLayout pageTitle="Blog">
+<BaseLayout pageTitle={t("meta.blog-title")} description={t("meta.blog-description")}>
   <section class="posts">
     <h1 class="posts__title">{t("blog.title")}</h1>
     <ul class="post__tags">
