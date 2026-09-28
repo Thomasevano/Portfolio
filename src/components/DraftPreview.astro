@@ -1,0 +1,32 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+interface Props {
+  draft?: boolean;
+}
+
+const { draft = false } = Astro.props;
+const t = useTranslations(getLangFromUrl(Astro.url));
+const visible = import.meta.env.DEV && draft;
+---
+
+{
+  visible && (
+    <p class="draft-preview">
+      {t("post.draft-preview")}
+    </p>
+  )
+}
+
+<style>
+  .draft-preview {
+    width: fit-content;
+    margin-bottom: 1em;
+    border: 1px dashed var(--clr-primary-text);
+    border-radius: 0.25rem;
+    padding: 0.25em 0.5em;
+    color: var(--clr-primary-text);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+</style>

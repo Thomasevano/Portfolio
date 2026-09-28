@@ -2,6 +2,7 @@
 import { localizePath, useTranslations, type Lang } from "../i18n/utils";
 import BaseLayout from "./BaseLayout.astro";
 import { getPostTranslations } from "../lib/posts";
+import DraftPreview from "../components/DraftPreview.astro";
 
 const { frontmatter, lang, minutesRead, slug } = Astro.props;
 
@@ -17,6 +18,7 @@ const t = useTranslations(lang);
   publishedTime={frontmatter.pubDate}
 >
   <section class="post">
+    <DraftPreview draft={frontmatter.draft} />
     <div class="post--header">
       <h1 class="post--header__title">{frontmatter.title}</h1>
       <div class="post--header__meta">
