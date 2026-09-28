@@ -1,29 +1,31 @@
-# Astro Starter Kit: Portfolio
+# thomasevano.fr
 
-```
-npm create astro@latest -- --template portfolio
-```
+Bilingual personal site and technical blog for Thomas Evano, built with Astro.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/portfolio)
+## Requirements
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- Node.js 22.12 or newer
+- pnpm 11
 
-![portfolio](https://user-images.githubusercontent.com/4677417/186189473-03dda103-65d3-4220-8b60-180ccaee5939.png)
+## Commands
 
+Run from the repository root:
 
-## 🧞 Commands
+| Command | Purpose |
+| --- | --- |
+| `pnpm install` | Install dependencies |
+| `pnpm dev` | Start the local development server |
+| `pnpm check` | Run Astro and TypeScript diagnostics |
+| `pnpm build` | Generate the production site in `dist/` |
+| `pnpm preview` | Serve the production build locally |
 
-All commands are run from the root of the project, from a terminal:
+The production build is self-contained and does not require a GitHub token.
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:3000`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro --help` | Get help using the Astro CLI                     |
+## Content
 
-## 👀 Want to learn more?
+- Recruiter-facing FR/EN copy: `src/i18n/ui.ts`
+- Contact links: `src/content/data/aboutMe.json`
+- Curated project presentation: `src/components/Projects.astro`
+- Blog posts: `src/content/posts/{fr,en}`
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Project images and résumé PDFs are local assets, so the production site does not depend on remote files. The published résumés live at `public/resume/thomas-evano-cv.pdf` (French) and `public/resume/thomas-evano-resume.pdf` (English).
