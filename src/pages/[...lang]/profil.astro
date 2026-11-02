@@ -1,0 +1,44 @@
+---
+import { readFile } from "node:fs/promises";
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { localeRoutes } from "../../i18n/utils";
+
+export const getStaticPaths = localeRoutes;
+const { lang } = Astro.props;
+const markdownPath = lang === "en" ? "/profil.en.md" : "/profil.md";
+const markdown = await readFile(`public${markdownPath}`, "utf8");
+const processor = await createMarkdownProcessor();
+const { code } = await processor.render(markdown);
+---
+
+<BaseLayout pageTitle={lang === "en" ? "Profile — Thomas Evano" : "Profil — Thomas Evano"} description={lang === "en" ? "Thomas Evano's experience, projects, and skills as a full-stack software engineer." : "Parcours, projets et compétences de Thomas Evano, software engineer fullstack."}>
+  <article class="profile" set:html={code} />
+  <p class="profile-link"><a href={markdownPath}>{lang === "en" ? "Markdown version" : "Version Markdown"}</a></p>
+</BaseLayout>
+
+<style>
+  .profile {
+    max-width: 65ch;
+    margin: 2em auto;
+    line-height: 1.7;
+  }
+  .profile :global(h1), .profile :global(h2), .profile :global(h3) {
+    margin: 1.2em 0 0.5em;
+  }
+  .profile :global(p), .profile :global(ul), .profile :global(blockquote) {
+    margin: 1em 0;
+    color: var(--clr-fg-alt);
+  }
+  .profile :global(ul) {
+    padding-left: 1.5em;
+    list-style: disc;
+  }
+  .profile :global(li) { margin-bottom: 0.5em; }
+  .profile :global(a), .profile-link a {
+    color: var(--clr-primary);
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+  }
+  .profile-link { max-width: 65ch; margin: 0 auto 3em; }
+</style>
