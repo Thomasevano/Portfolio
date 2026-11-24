@@ -2054,10 +2054,6 @@ packages:
     resolution: {integrity: sha512-j7WyPdf0CJoutMzMoPLF/bVXHtKZIT9Rb4eGeEbWw8X2t5oirjPgpL+OpaENZrILYaXqYwnVH+qgUwVbl+pUJQ==}
     engines: {node: '>= 18'}
 
-  source-map-js@1.2.1:
-    resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
-    engines: {node: '>=0.10.0'}
-
   source-map-js@1.2.4:
     resolution: {integrity: sha512-J7ZjMvHd9O1fcT/5V09QWaaSl2BbWx3F6O08spde82Namf9UB0GxRVIPiNbVsdKkoizHiSpTodo3vp2bAy91MA==}
     engines: {node: '>=6.0.0'}
@@ -2463,9 +2459,6 @@ packages:
     resolution: {integrity: sha512-4LCcse/U2MHZ63HAJVE+v71o7yOdIe4cZ70Wpf8D/IyjDKYQLV5GD46B+hSTjJsvV5PztjvHoU580EftxjDZFQ==}
     engines: {node: '>=12.20'}
 
-  zod@4.6.5:
-    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
-
   zod@4.6.7:
     resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
 
@@ -2688,7 +2681,7 @@ snapshots:
     dependencies:
       fast-xml-parser: 5.12.1
       piccolore: 0.1.3
-      zod: 4.6.5
+      zod: 4.6.7
 
   '@astrojs/runtime@0.1.2':
     dependencies:
@@ -2713,7 +2706,7 @@ snapshots:
       rolldown: 1.2.19
       smol-toml: 1.9.0
       vite: 8.3.8(@types/node@26.1.2)(esbuild@0.28.2)(jiti@2.4.2)(yaml@2.9.1)
-      zod: 4.6.5
+      zod: 4.6.7
 
   '@astrojs/yaml2ts@0.2.4':
     dependencies:
@@ -3594,12 +3587,12 @@ snapshots:
   css-tree@2.2.1:
     dependencies:
       mdn-data: 2.0.28
-      source-map-js: 1.2.1
+      source-map-js: 1.2.4
 
   css-tree@3.2.1:
     dependencies:
       mdn-data: 2.27.1
-      source-map-js: 1.2.1
+      source-map-js: 1.2.4
 
   css-what@7.0.0: {}
 
@@ -4065,7 +4058,7 @@ snapshots:
     dependencies:
       '@babel/parser': 7.29.9
       '@babel/types': 7.29.8
-      source-map-js: 1.2.1
+      source-map-js: 1.2.4
 
   markdown-extensions@2.0.0: {}
 
@@ -4891,8 +4884,6 @@ snapshots:
 
   smol-toml@1.9.1: {}
 
-  source-map-js@1.2.1: {}
-
   source-map-js@1.2.4: {}
 
   source-map@0.7.6: {}
@@ -5241,8 +5232,6 @@ snapshots:
       yargs-parser: 22.0.0
 
   yocto-queue@1.2.2: {}
-
-  zod@4.6.5: {}
 
   zod@4.6.7: {}
 
